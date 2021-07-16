@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Happy Places</string>
+    <string name="fab_desc">FAB for adding places</string>
 </resources>
