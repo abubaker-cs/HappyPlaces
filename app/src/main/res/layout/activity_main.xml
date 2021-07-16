@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_action_add_24dp"
-            android:contentDescription="@string/fab_desc" />
+            android:contentDescription="@string/fab_desc"
+            app:srcCompat="@drawable/ic_baseline_add_location_24" />
 
     </FrameLayout>
 </layout>
