@@ -8,8 +8,15 @@
 
     <!-- A custom theme is for No ActionBar to our activity is added. This is created over here for
         Maintaining the Status Bar color in all the activities added with NoActionBar Theme.
-        Which is material standard. -->
-    <style name="CustomNoActionBarTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        Which is material standard.
+
+        Issue: parent="@style/Theme.AppCompat.Light.NoActionBar"
+        Solution: parent="@style/Theme.MaterialComponents.Light.NoActionBar"
+
+        Reference: https://www.udemy.com/course/android-kotlin-developer/learn/lecture/18000303#questions/12215974
+
+        -->
+    <style name="CustomNoActionBarTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
     </style>
 
