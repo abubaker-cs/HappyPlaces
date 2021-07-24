@@ -1,5 +1,6 @@
 package org.abubaker.happyplaces
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -15,6 +16,12 @@ class MainActivity : AppCompatActivity() {
 
         // Inflate Layout (XML)
         binding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+
+        // FAB
+        binding.fabAddHappyPlace.setOnClickListener {
+            val intent = Intent(this, AddHappyPlaceActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
