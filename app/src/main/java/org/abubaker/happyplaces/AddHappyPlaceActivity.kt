@@ -78,7 +78,6 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
             }
 
-            // DEXTER
             R.id.iv_place_image -> {
 
                 // From: Gallery
@@ -92,7 +91,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 // Action
                 pictureDialog.setItems(pictureDialogItems) { dialog, which ->
                     when (which) {
-                        0 -> "Hi"
+                        0 -> choosePhotoFromGallery()
                         1 -> Toast.makeText(
                             this@AddHappyPlaceActivity,
                             "Camera Selection coming soon...",
@@ -108,6 +107,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         }
+    }
+
+    // From: Gallery
+    private fun choosePhotoFromGallery() {
+        // DEXTER will be used here
+
     }
 
     //
