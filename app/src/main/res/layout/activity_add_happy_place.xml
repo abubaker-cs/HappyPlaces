@@ -92,10 +92,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/til_description">
 
+                    <!--
+                        *** focusable and focusableInTouchMode will disable FOCUS
+                        It will be helpful in stopping user to type any text
+                     -->
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/et_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="@string/edit_text_hint_date"
                         android:inputType="text"
                         android:textColor="@color/primary_text_color"
