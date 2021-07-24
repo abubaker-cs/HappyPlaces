@@ -20,9 +20,10 @@ class AddHappyPlaceActivity : AppCompatActivity() {
             R.layout.activity_add_happy_place
         )
 
-        //
+        // Enabling Support for the Toolbar
         setSupportActionBar(binding.toolbarAddPlace)
 
+        // Activating the Toolbar
         val actionbar = supportActionBar
 
         //
@@ -30,7 +31,7 @@ class AddHappyPlaceActivity : AppCompatActivity() {
             actionbar.setDisplayHomeAsUpEnabled(true)
         }
 
-        // Navigate the main activity on click on back button of action bar.
+        // Navigate the main activity on clicking the back button inside the action bar.
         binding.toolbarAddPlace.setNavigationOnClickListener {
             onBackPressed()
         }
