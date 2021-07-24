@@ -1,9 +1,11 @@
 package org.abubaker.happyplaces
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import org.abubaker.happyplaces.databinding.ActivityMainBinding
@@ -75,6 +77,36 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
             }
+
+            // DEXTER
+            R.id.iv_place_image -> {
+
+                // From: Gallery
+                val pictureDialog = AlertDialog.Builder(this)
+                pictureDialog.setTitle("Select Action")
+
+                // From: Camera
+                val pictureDialogItems =
+                    arrayOf("Select photo from Gallery", "Capture photo from camera")
+
+                // Action
+                pictureDialog.setItems(pictureDialogItems) { dialog, which ->
+                    when (which) {
+                        0 -> "Hi"
+                        1 -> Toast.makeText(
+                            this@AddHappyPlaceActivity,
+                            "Camera Selection coming soon...",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                // Initiate
+                pictureDialog.show()
+
+
+            }
+
         }
     }
 
