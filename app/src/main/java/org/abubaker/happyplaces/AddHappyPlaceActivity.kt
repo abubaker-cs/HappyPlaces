@@ -92,7 +92,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
             }
 
-            R.id.iv_place_image -> {
+            R.id.tv_add_image -> {
 
                 // From: Gallery
                 val pictureDialog = AlertDialog.Builder(this)
@@ -148,7 +148,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 showRationalDialogForPermissions()
             }
-        }).check();
+        }).onSameThread().check(); // onSameThread() - important to use it
 
     }
 
@@ -168,7 +168,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 } catch (e: ActivityNotFoundException) {
                     e.printStackTrace()
                 }
-            }
+            }.setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 
     //
