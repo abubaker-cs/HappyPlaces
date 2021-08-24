@@ -132,8 +132,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.CAMERA
         ).withListener(object : MultiplePermissionsListener {
-            override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                if (report.areAllPermissionsGranted()) {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                if (report!!.areAllPermissionsGranted()) {
                     Toast.makeText(
                         this@AddHappyPlaceActivity,
                         "Storage READ/WRITE permissions are granted. Now you can select an image from GALLERY",
