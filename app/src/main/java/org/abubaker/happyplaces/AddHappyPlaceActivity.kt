@@ -3,8 +3,12 @@ package org.abubaker.happyplaces
 import android.Manifest
 import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -142,10 +146,29 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 permissions: MutableList<PermissionRequest>,
                 token: PermissionToken
             ) {
-
+                showRationalDialogForPermissions()
             }
         }).check();
 
+    }
+
+    //
+    private fun showRationalDialogForPermissions() {
+        AlertDialog.Builder(this)
+            .setMessage(
+                "" +
+                        "It looks like you have turned off permissions required for this feature." +
+                        " It can be enabled under the Application Settings"
+            ).setPositiveButton("GO TO SETTINGS") { _, _ ->
+                try {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                    val uri = Uri.fromParts("package", packageName, null)
+                    intent.data = uri
+                    startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
     }
 
     //
