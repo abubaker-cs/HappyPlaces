@@ -1,5 +1,6 @@
 package org.abubaker.happyplaces
 
+import android.Manifest
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -7,8 +8,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
-import org.abubaker.happyplaces.databinding.ActivityMainBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -63,10 +68,15 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // i.e. the MODAL will popup from this location
         binding.etDate.setOnClickListener(this)
 
+        // We are adding the onClick() listener for our image button
+        binding.tvAddImage.setOnClickListener(this)
+
     }
 
     // After assigning View.OnClickListener to the main class
     override fun onClick(v: View?) {
+
+
         when (v!!.id) {
             R.id.et_date -> {
                 DatePickerDialog(
@@ -112,6 +122,29 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     // From: Gallery
     private fun choosePhotoFromGallery() {
         // DEXTER will be used here
+        // Reference:
+        Dexter.withContext(this).withPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                if (report.areAllPermissionsGranted()) {
+                    Toast.makeText(
+                        this@AddHappyPlaceActivity,
+                        "Storage READ/WRITE permissions are granted. Now you can select an image from GALLERY",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>,
+                token: PermissionToken
+            ) {
+
+            }
+        }).check();
 
     }
 
