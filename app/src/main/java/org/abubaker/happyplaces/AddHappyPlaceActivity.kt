@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +26,9 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -152,6 +155,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         val selectedImageBitmap =
                             MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
 
+                        //
+                        val saveImageToInternalStorage =
+                            saveImageToInternalStorage(selectedImageBitmap)
+
+                        Log.e("Saved image: ", "Path :: $saveImageToInternalStorage")
+
                         // Set the selected image
                         binding.ivPlaceImage.setImageBitmap(selectedImageBitmap)
 
@@ -169,7 +178,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             } else if (requestCode == CAMERA) {
 
                 // Convert retrieved data as Bitmap
-                val thumbnail : Bitmap = data!!.extras!!.get("data") as Bitmap
+                val thumbnail: Bitmap = data!!.extras!!.get("data") as Bitmap
+
+                val saveImageToInternalStorage =
+                    saveImageToInternalStorage(thumbnail)
+
+                Log.e("Saved image: ", "Path :: $saveImageToInternalStorage")
 
                 // Update imageView: ivPlaceImage
                 binding.ivPlaceImage.setImageBitmap(thumbnail)
@@ -280,7 +294,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     // It will store image and then return URI (path of the file)
-    private fun saveImageToInternalStorage(bitmap: Bitmap): Uri{
+    private fun saveImageToInternalStorage(bitmap: Bitmap): Uri {
         val wrapper = ContextWrapper(applicationContext)
 
         // Context.MODE_PRIVATE= The file will be only accessible by this application
@@ -289,11 +303,23 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         //
         file = File(file, "${UUID.randomUUID()}.jpg")
 
-        try{
+        try {
+            // Compress
+            val stream: OutputStream = FileOutputStream(file)
 
-        } catch (e:IOException){
+            // Compress image
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+
+            // Flush & Close the active stream
+            stream.flush()
+            stream.close()
+
+        } catch (e: IOException) {
             e.printStackTrace()
         }
+
+        // It will return the ABSOLUTE path (whole directory)
+        return Uri.parse(file.absolutePath)
 
 
     }
