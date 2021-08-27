@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -22,6 +24,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
+import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +39,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
 
 
+    /**
+     * onCreate()
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,9 +88,10 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    // After assigning View.OnClickListener to the main class
+    /**
+     * onClick() - After assigning View.OnClickListener to the main class
+     */
     override fun onClick(v: View?) {
-
 
         when (v!!.id) {
             R.id.et_date -> {
@@ -97,6 +104,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
             }
 
+            // We are creating a custom Dialog, which will contain 2 actions
             R.id.tv_add_image -> {
 
                 // From: Gallery
@@ -124,15 +132,17 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * Depreciated Method - onActivityResult()
+     * onActivityResult()
      */
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
+        // Depreciated - onActivityResult()
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Take appropriate action, based on selected option from the custom dialog
         if (resultCode == Activity.RESULT_OK) {
 
-            // Gallery
+            // Gallery - Allow user to select existing picture from the gallery
             if (requestCode == GALLERY) {
                 if (data != null) {
                     val contentURI = data.data
@@ -155,15 +165,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
 
-                // CAMERA
+                // CAMERA - Allows user to take live picture using device camera
             } else if (requestCode == CAMERA) {
+
+                // Convert retrieved data as Bitmap
                 val thumbnail : Bitmap = data!!.extras!!.get("data") as Bitmap
+
+                // Update imageView: ivPlaceImage
                 binding.ivPlaceImage.setImageBitmap(thumbnail)
 
-
-
             }
-
 
         }
 
@@ -268,10 +279,30 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         binding.etDate.setText(sdf.format(cal.time).toString())
     }
 
+    // It will store image and then return URI (path of the file)
+    private fun saveImageToInternalStorage(bitmap: Bitmap): Uri{
+        val wrapper = ContextWrapper(applicationContext)
+
+        // Context.MODE_PRIVATE= The file will be only accessible by this application
+        var file = wrapper.getDir(IMAGE_DIRECTORY, Context.MODE_PRIVATE)
+
+        //
+        file = File(file, "${UUID.randomUUID()}.jpg")
+
+        try{
+
+        } catch (e:IOException){
+            e.printStackTrace()
+        }
+
+
+    }
+
     // Companion Objects
     companion object {
         private const val GALLERY = 1
         private const val CAMERA = 2
+        private const val IMAGE_DIRECTORY = "HappyPlacesImages"
     }
 
 }
