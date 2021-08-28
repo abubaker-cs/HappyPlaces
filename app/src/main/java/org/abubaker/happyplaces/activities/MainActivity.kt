@@ -1,9 +1,10 @@
-package org.abubaker.happyplaces
+package org.abubaker.happyplaces.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import org.abubaker.happyplaces.R
 import org.abubaker.happyplaces.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
