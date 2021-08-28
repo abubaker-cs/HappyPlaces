@@ -231,7 +231,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // Simple Date Format = Get DEFAULT system format
         val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
-        // Convert current date based on the selected format and assign it to our et_date textfield
+        // Convert current date based on the selected format and assign it to our et_date text field
         binding.etDate.setText(sdf.format(cal.time).toString())
     }
 
@@ -298,7 +298,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 showRationalDialogForPermissions()
             }
-        }).onSameThread().check(); // onSameThread() - important to use it
+        }).onSameThread().check() // onSameThread() - important to use it
     }
 
     /**
