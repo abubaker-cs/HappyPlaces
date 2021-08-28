@@ -25,6 +25,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.abubaker.happyplaces.R
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
+import org.abubaker.happyplaces.models.HappyPlaceModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -86,6 +87,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
         }
 
+        // We are calling it twice - it will help in auto-updating the date
+        updateDateInView()
+
         // this = Because our AddHappyPlaceActivity is actually = View.OnClickListeners
         // IMPORTANT: It will BIND the DatePicker to this TextField = et_date,
         // i.e. the MODAL will popup from this location
@@ -142,7 +146,43 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             // Save Button
             R.id.btn_save -> {
                 // TODO save the Data Model to the database
+                // validate first
 
+                when {
+
+                    binding.etTitle.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "Please enter title", Toast.LENGTH_LONG).show()
+                    }
+
+                    binding.etDescription.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "Please enter a description", Toast.LENGTH_LONG).show()
+                    }
+
+                    binding.etLocation.text.isNullOrEmpty() -> {
+                        Toast.makeText(this, "Please enter a date", Toast.LENGTH_LONG).show()
+                    }
+
+                    saveImageToInternalStorage == null -> {
+                        Toast.makeText(this, "Please select an image", Toast.LENGTH_LONG).show()
+                    }
+
+                    else -> {
+
+                        val HappyPlaceModel = HappyPlaceModel(
+                            0,
+                            binding.etTitle.text.toString(),
+                            saveImageToInternalStorage.toString(),
+                            binding.etDescription.text.toString(),
+                            binding.etDate.text.toString(),
+                            binding.etLocation.text.toString(),
+                            mLatitude,
+                            mLongitude
+                        )
+
+
+                    }
+
+                }
             }
 
         }

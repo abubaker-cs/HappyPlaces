@@ -18,8 +18,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--TODO (Step 3: Here we have designed the add happy place screen using ConstraintLayout from below the toolbar component.)-->
-        <!--START-->
         <!--Here we have done list of things.
              1. We designed the view as per our requirement and with required components.
              2. We have added some of the custom background drawables in the drawable folder.
