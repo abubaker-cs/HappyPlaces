@@ -43,7 +43,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
 
     /**
-     * onCreate()
+     * This function is auto created by Android when the Activity Class is created.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,7 +135,18 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * onActivityResult()
+     * Receive the result from a previous call to
+     * {@link #startActivityForResult(Intent, int)}.  This follows the
+     * related Activity API as described there in
+     * {@link Activity#onActivityResult(int, int, Intent)}.
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
      */
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -195,38 +206,24 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * From: Camera
+     * A function to update the selected date in the UI with selected format.
+     * This function is created because every time we don't need to add format which we have added here to show it in the UI.
      */
-    private fun takePhotoFromCamera() {
-        // DEXTER will be used here
-        // Reference:
-        Dexter.withContext(this).withPermissions(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
-        ).withListener(object : MultiplePermissionsListener {
-            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                if (report!!.areAllPermissionsGranted()) {
+    private fun updateDateInView() {
 
-                    val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        // Required Format
+        val myFormat = "dd.MM.yyyy"
 
-                    // Open Camera
-                    startActivityForResult(galleryIntent, CAMERA)
+        // Simple Date Format = Get DEFAULT system format
+        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
 
-                }
-            }
-
-            override fun onPermissionRationaleShouldBeShown(
-                permissions: MutableList<PermissionRequest>,
-                token: PermissionToken
-            ) {
-                showRationalDialogForPermissions()
-            }
-        }).onSameThread().check(); // onSameThread() - important to use it
+        // Convert current date based on the selected format and assign it to our et_date textfield
+        binding.etDate.setText(sdf.format(cal.time).toString())
     }
 
+
     /**
-     * From: Gallery
+     * A method is used for image selection from GALLERY / PHOTOS of phone storage.
      */
     private fun choosePhotoFromGallery() {
         // DEXTER will be used here
@@ -259,7 +256,40 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    //
+    /**
+     * A method is used  asking the permission for camera and storage and image capturing and selection from Camera.
+     */
+    private fun takePhotoFromCamera() {
+        // DEXTER will be used here
+        // Reference:
+        Dexter.withContext(this).withPermissions(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+        ).withListener(object : MultiplePermissionsListener {
+            override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                if (report!!.areAllPermissionsGranted()) {
+
+                    val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+                    // Open Camera
+                    startActivityForResult(galleryIntent, CAMERA)
+
+                }
+            }
+
+            override fun onPermissionRationaleShouldBeShown(
+                permissions: MutableList<PermissionRequest>,
+                token: PermissionToken
+            ) {
+                showRationalDialogForPermissions()
+            }
+        }).onSameThread().check(); // onSameThread() - important to use it
+    }
+
+    /**
+     * A function used to show the alert dialog when the permissions are denied and need to allow it from settings app info.
+     */
     private fun showRationalDialogForPermissions() {
         AlertDialog.Builder(this)
             .setMessage(
@@ -280,19 +310,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             }.show()
     }
 
-    //
-    private fun updateDateInView() {
-
-        // Required Format
-        val myFormat = "dd.MM.yyyy"
-
-        // Simple Date Format = Get DEFAULT system format
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-
-        // Convert current date based on the selected format and assign it to our et_date textfield
-        binding.etDate.setText(sdf.format(cal.time).toString())
-    }
-
+    /**
+     * A function to save a copy of an image to internal storage for HappyPlaceApp to use.
+     */
     // It will store image and then return URI (path of the file)
     private fun saveImageToInternalStorage(bitmap: Bitmap): Uri {
         val wrapper = ContextWrapper(applicationContext)
