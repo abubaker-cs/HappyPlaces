@@ -80,9 +80,12 @@ class DatabaseHandler(context: Context) :
         // A list is initialize using the data model class in which we will add the values from cursor.
         val happyPlaceList: ArrayList<HappyPlaceModel> = ArrayList()
 
+        // Select Database using SQL Query
         val selectQuery = "SELECT  * FROM $TABLE_HAPPY_PLACE" // Database select query
 
+        //
         val db = this.readableDatabase
+
 
         try {
             val cursor: Cursor = db.rawQuery(selectQuery, null)
