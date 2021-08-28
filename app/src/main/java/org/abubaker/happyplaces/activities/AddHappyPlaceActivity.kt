@@ -24,6 +24,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import org.abubaker.happyplaces.R
+import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 import java.io.File
@@ -178,6 +179,27 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             mLatitude,
                             mLongitude
                         )
+
+                        // Refers to the DatabaseHandler.kt class
+                        val dbHandler = DatabaseHandler(this)
+
+                        // Insert data into the selected database
+                        val addHappyPlace = dbHandler.addHappyPlace(HappyPlaceModel)
+
+
+                        // If record was saved successfully
+                        if (addHappyPlace > 0) {
+
+                            // Displays success message
+                            Toast.makeText(
+                                this,
+                                "The happy place details are inserted successfully",
+                                Toast.LENGTH_LONG
+                            ).show()
+
+                            // Finishes the activity
+                            finish()
+                        }
 
 
                     }
