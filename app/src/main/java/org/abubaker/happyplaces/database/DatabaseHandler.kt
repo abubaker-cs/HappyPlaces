@@ -44,31 +44,28 @@ class DatabaseHandler(context: Context) :
         onCreate(db)
     }
 
-    // TODO (Step 4 : After Creating a database handler class. Let us create an function to insert a happy place detail to respective table.)
-    // START
     /**
      * Function to insert a Happy Place details to SQLite Database.
      */
     fun addHappyPlace(happyPlace: HappyPlaceModel): Long {
         val db = this.writableDatabase
 
+        // Based on HappyPlaceModelClass
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, happyPlace.title) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_IMAGE, happyPlace.image) // HappyPlaceModelClass IMAGE
-        contentValues.put(
-            KEY_DESCRIPTION,
-            happyPlace.description
-        ) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_DATE, happyPlace.date) // HappyPlaceModelClass DATE
-        contentValues.put(KEY_LOCATION, happyPlace.location) // HappyPlaceModelClass LOCATION
-        contentValues.put(KEY_LATITUDE, happyPlace.latitude) // HappyPlaceModelClass LATITUDE
-        contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // HappyPlaceModelClass LONGITUDE
+        contentValues.put(KEY_TITLE, happyPlace.title) //  TITLE
+        contentValues.put(KEY_IMAGE, happyPlace.image) // IMAGE
+        contentValues.put(KEY_DESCRIPTION, happyPlace.description) // DESCRIPTION
+        contentValues.put(KEY_DATE, happyPlace.date) // DATE
+        contentValues.put(KEY_LOCATION, happyPlace.location) // LOCATION
+        contentValues.put(KEY_LATITUDE, happyPlace.latitude) // LATITUDE
+        contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // LONGITUDE
 
-        // Inserting Row
+        // Inserting Row, 2nd argument is String containing nullColumnHack
         val result = db.insert(TABLE_HAPPY_PLACE, null, contentValues)
-        //2nd argument is String containing nullColumnHack
 
-        db.close() // Closing database connection
+        // Closing database connection
+        db.close()
+
         return result
     }
     // END
