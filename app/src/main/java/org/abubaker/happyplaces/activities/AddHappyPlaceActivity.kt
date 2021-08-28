@@ -41,6 +41,11 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private val cal = Calendar.getInstance()
     private lateinit var dateSetListener: DatePickerDialog.OnDateSetListener
 
+    // Important Variables for the project to run
+    private var saveImageToInternalStorage: Uri? = null
+    private var mLatitude: Double = 0.0
+    private var mLongitude: Double = 0.0
+
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -89,6 +94,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // We are adding the onClick() listener for our image button
         binding.tvAddImage.setOnClickListener(this)
 
+        // For saving into the DB
+        binding.btnSave.setOnClickListener(this)
+
     }
 
     /**
@@ -131,6 +139,12 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
             }
 
+            // Save Button
+            R.id.btn_save -> {
+                // TODO save the Data Model to the database
+
+            }
+
         }
     }
 
@@ -167,7 +181,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
 
                         //
-                        val saveImageToInternalStorage =
+                        saveImageToInternalStorage =
                             saveImageToInternalStorage(selectedImageBitmap)
 
                         Log.e("Saved image: ", "Path :: $saveImageToInternalStorage")
@@ -191,7 +205,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 // Convert retrieved data as Bitmap
                 val thumbnail: Bitmap = data!!.extras!!.get("data") as Bitmap
 
-                val saveImageToInternalStorage =
+                saveImageToInternalStorage =
                     saveImageToInternalStorage(thumbnail)
 
                 Log.e("Saved image: ", "Path :: $saveImageToInternalStorage")
