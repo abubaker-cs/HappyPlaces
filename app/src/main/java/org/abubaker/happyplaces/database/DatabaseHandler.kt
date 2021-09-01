@@ -92,11 +92,14 @@ class DatabaseHandler(context: Context) :
             // It will cycle through all records in the selected TABLE
             val cursor: Cursor = db.rawQuery(selectQuery, null)
 
-            // Condition | moveToFirst() Move the cursor to the first row.
+            // Cursor = It contains the result set of a query made against a database
+            // moveToFirst() = Moves the cursor to the first row.
             if (cursor.moveToFirst()) {
 
                 // Fetch information of selected rows from each record
                 do {
+
+                    // Store records from the DB's Entry to the PLACE variable
                     val place = HappyPlaceModel(
 
                         // getInt = For Integer Record
@@ -113,6 +116,8 @@ class DatabaseHandler(context: Context) :
                         cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)),
                         cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE))
                     )
+
+                    // Add record to the List
                     happyPlaceList.add(place)
 
                 } while (cursor.moveToNext())
