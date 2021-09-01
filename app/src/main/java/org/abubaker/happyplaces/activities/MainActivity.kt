@@ -90,6 +90,8 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
             if (requestCode == Activity.RESULT_OK) {
                 getHappyPlacesListFromLocalDB()
+            } else {
+                Log.e("Activity", "Cancelled or Back pressed")
             }
         }
 
