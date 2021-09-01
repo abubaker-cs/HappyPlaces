@@ -124,6 +124,7 @@ class DatabaseHandler(context: Context) :
 
             }
 
+            // Close the Cursor so that our program does not run into errors
             cursor.close()
 
         } catch (e: SQLiteException) {
