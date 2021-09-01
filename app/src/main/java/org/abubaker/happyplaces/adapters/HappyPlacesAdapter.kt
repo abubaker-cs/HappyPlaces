@@ -24,7 +24,6 @@ open class HappyPlacesAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemHappyPlaceBinding.inflate(layoutInflater, parent, false)
 
-
         return MyViewHolder(binding)
     }
 
