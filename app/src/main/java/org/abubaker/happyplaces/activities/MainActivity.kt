@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Call the function to retrieve records
+        getHappyPlacesListFromLocalDB()
+
     }
 
     // It will call the function from the DatabaseHandler.kt file
@@ -43,9 +46,9 @@ class MainActivity : AppCompatActivity() {
         if (getHappyPlacesList.size > 0) {
             for (i in getHappyPlacesList) {
                 Log.e("Title", i.title)
+                Log.e("Description", i.description)
             }
         }
-
 
     }
 
