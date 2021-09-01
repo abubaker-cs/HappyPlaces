@@ -3,18 +3,15 @@ package org.abubaker.happyplaces.adapters
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.abubaker.happyplaces.R
+import org.abubaker.happyplaces.databinding.ItemHappyPlaceBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
 open class HappyPlacesAdapter(
     private val context: Context,
     private var list: ArrayList<HappyPlaceModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-// RecyclerView.ViewHolder = Our Custom ViewHolder defined at the end of the file
-    
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -24,16 +21,11 @@ open class HappyPlacesAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         //
-        return MyViewHolder(
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemHappyPlaceBinding.inflate(layoutInflater, parent, false)
 
-            //
-            LayoutInflater.from(context).inflate(
-                R.layout.item_happy_place,
-                parent,
-                false
-            )
 
-        )
+        return MyViewHolder(binding)
     }
 
     /**
@@ -72,5 +64,6 @@ open class HappyPlacesAdapter(
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
      */
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    private class MyViewHolder(val binding: ItemHappyPlaceBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
