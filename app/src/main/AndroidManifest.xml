@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.abubaker.happyplaces">
-
     <!-- Permissions -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Not useful in android 10+ -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- android:theme="@style/Theme.HappyPlaces" -->
     <application
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
@@ -15,12 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity
-            android:name=".activities.AddHappyPlaceActivity"
-            android:label="ADD HAPPY PLACE"
-            android:screenOrientation="portrait"
-            android:theme="@style/CustomNoActionBarTheme" />
 
         <activity
             android:name=".activities.MainActivity"
@@ -31,6 +23,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.AddHappyPlaceActivity"
+            android:label="ADD HAPPY PLACE"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme" />
+
+        <activity
+            android:name=".activities.HappyPlaceDetailActivity"
+            android:label="HAPPY PLACE DETAILS"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomNoActionBarTheme" />
+
     </application>
 
 </manifest>
