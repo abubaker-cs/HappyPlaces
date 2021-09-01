@@ -7,14 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.abubaker.happyplaces.R
-import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
 open class HappyPlacesAdapter(
     private val context: Context,
     private var list: ArrayList<HappyPlaceModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
+// RecyclerView.ViewHolder = Our Custom ViewHolder defined at the end of the file
+    
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -23,12 +23,16 @@ open class HappyPlacesAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
+        //
         return MyViewHolder(
+
+            //
             LayoutInflater.from(context).inflate(
                 R.layout.item_happy_place,
                 parent,
                 false
             )
+
         )
     }
 
@@ -43,8 +47,11 @@ open class HappyPlacesAdapter(
      * layout file.
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        //
         val model = list[position]
 
+        //
         if (holder is MyViewHolder) {
             holder.itemView.iv_place_image.setImageURI(Uri.parse(model.image))
             holder.itemView.tvTitle.text = model.title
@@ -56,7 +63,10 @@ open class HappyPlacesAdapter(
      * Gets the number of items in the list
      */
     override fun getItemCount(): Int {
+
+        // Returns Total # of Rows
         return list.size
+
     }
 
     /**
