@@ -43,6 +43,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // It is called when the activity which launched with the request code
+    // and expecting a result from the launched activity.
+    // Call Back method  to get the Message form other Activity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // check if the request code is same as what is passed  here it is 'ADD_PLACE_ACTIVITY_REQUEST_CODE'
+        if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                getHappyPlacesListFromLocalDB()
+            }else{
+                Log.e("Activity", "Cancelled or Back Pressed")
+            }
+        }
+    }
+
     // It will call the function from the DatabaseHandler.kt file
     private fun getHappyPlacesListFromLocalDB() {
 
@@ -84,21 +100,12 @@ class MainActivity : AppCompatActivity() {
         binding.rvHappyPlacesList.adapter = placesAdapter
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
-            if (requestCode == Activity.RESULT_OK) {
-                getHappyPlacesListFromLocalDB()
-            } else {
-                Log.e("Activity", "Cancelled or Back pressed")
-            }
-        }
-
-    }
-
+    /**
+     * Declare a static variable which we will using for notify the item is added
+     * when we will be returning back after adding.
+     */
     companion object {
-        var ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
+        private const val ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
     }
 
 }

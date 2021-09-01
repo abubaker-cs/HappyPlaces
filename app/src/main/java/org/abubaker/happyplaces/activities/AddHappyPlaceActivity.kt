@@ -193,15 +193,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             // Send RESULT to the MainActivity (using companion variable)
                             setResult(Activity.RESULT_OK)
 
-                            // Displays success message
-                            Toast.makeText(
-                                this,
-                                "The happy place details are inserted successfully",
-                                Toast.LENGTH_LONG
-                            ).show()
-
                             // Finishes the activity
                             finish()
+
+                            // Displays success message
+                            // Toast.makeText(
+                            //     this,
+                            //     "The happy place details are inserted successfully",
+                            //     Toast.LENGTH_LONG
+                            // ).show()
+
                         }
 
 
