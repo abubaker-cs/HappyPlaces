@@ -81,35 +81,52 @@ class DatabaseHandler(context: Context) :
         val happyPlaceList: ArrayList<HappyPlaceModel> = ArrayList()
 
         // Select Database using SQL Query
-        val selectQuery = "SELECT  * FROM $TABLE_HAPPY_PLACE" // Database select query
+        val selectQuery = "SELECT  * FROM $TABLE_HAPPY_PLACE"
 
-        //
+        // Read from the selected Database
         val db = this.readableDatabase
 
-
+        // Error Handling (e): SQLiteException
         try {
+
+            // It will cycle through all records in the selected TABLE
             val cursor: Cursor = db.rawQuery(selectQuery, null)
+
+            // Condition | moveToFirst() Move the cursor to the first row.
             if (cursor.moveToFirst()) {
+
+                // Fetch information of selected rows from each record
                 do {
                     val place = HappyPlaceModel(
+
+                        // getInt = For Integer Record
                         cursor.getInt(cursor.getColumnIndex(KEY_ID)),
+
+                        // getString = For Textual Records
                         cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
                         cursor.getString(cursor.getColumnIndex(KEY_IMAGE)),
                         cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)),
                         cursor.getString(cursor.getColumnIndex(KEY_DATE)),
                         cursor.getString(cursor.getColumnIndex(KEY_LOCATION)),
+
+                        // getDouble = For Real Numbers
                         cursor.getDouble(cursor.getColumnIndex(KEY_LATITUDE)),
                         cursor.getDouble(cursor.getColumnIndex(KEY_LONGITUDE))
                     )
                     happyPlaceList.add(place)
 
                 } while (cursor.moveToNext())
+
             }
+
             cursor.close()
+
         } catch (e: SQLiteException) {
             db.execSQL(selectQuery)
             return ArrayList()
         }
+
+        // Return the List of REcords
         return happyPlaceList
     }
 }
