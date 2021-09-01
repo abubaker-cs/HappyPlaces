@@ -57,7 +57,7 @@ dependencies {
     // For Debugging DB Entries
     debugImplementation 'im.dino:dbinspector:4.0.0@arr'
 
-    // Circle Image
+    // Plugin: https://github.com/hdodenhof/CircleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     testImplementation 'junit:junit:4.13.2'
