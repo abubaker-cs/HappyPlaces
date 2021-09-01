@@ -1,5 +1,6 @@
 package org.abubaker.happyplaces.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,16 +29,19 @@ class MainActivity : AppCompatActivity() {
         // FAB
         binding.fabAddHappyPlace.setOnClickListener {
             val intent = Intent(this, AddHappyPlaceActivity::class.java)
-            startActivity(intent)
+
+            // It is only starting the activity, but
+            // startActivity(intent)
+
+            // But we need to also receive the RESULT from the completed Activity
+            startActivityForResult(intent, ADD_PLACE_ACTIVITY_REQUEST_CODE)
+
         }
 
         // Call the function to retrieve records
         getHappyPlacesListFromLocalDB()
 
     }
-
-    //
-
 
     // It will call the function from the DatabaseHandler.kt file
     private fun getHappyPlacesListFromLocalDB() {
@@ -78,6 +82,21 @@ class MainActivity : AppCompatActivity() {
 
         val placesAdapter = HappyPlacesAdapter(this, happyPlacesList)
         binding.rvHappyPlacesList.adapter = placesAdapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
+            if (requestCode == Activity.RESULT_OK) {
+                getHappyPlacesListFromLocalDB()
+            }
+        }
+
+    }
+
+    companion object {
+        var ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
     }
 
 }

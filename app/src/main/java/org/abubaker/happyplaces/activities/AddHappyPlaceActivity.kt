@@ -190,6 +190,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         // If record was saved successfully
                         if (addHappyPlace > 0) {
 
+                            // Send RESULT to the MainActivity (using companion variable)
+                            setResult(Activity.RESULT_OK)
+
                             // Displays success message
                             Toast.makeText(
                                 this,
