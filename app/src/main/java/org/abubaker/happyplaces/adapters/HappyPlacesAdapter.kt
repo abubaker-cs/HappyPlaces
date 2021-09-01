@@ -45,9 +45,9 @@ open class HappyPlacesAdapter(
 
         //
         if (holder is MyViewHolder) {
-            holder.itemView.iv_place_image.setImageURI(Uri.parse(model.image))
-            holder.itemView.tvTitle.text = model.title
-            holder.itemView.tvDescription.text = model.description
+            holder.binding.ivPlaceImage.setImageURI(Uri.parse(model.image))
+            holder.binding.tvTitle.text = model.title
+            holder.binding.tvDescription.text = model.description
         }
     }
 
