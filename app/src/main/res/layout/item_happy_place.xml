@@ -21,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- Horizontal LinearLayout -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,6 +29,7 @@
             android:orientation="horizontal"
             android:padding="@dimen/item_happy_places_content_padding">
 
+            <!-- CircleImageView -->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_place_image"
                 android:layout_width="@dimen/item_happy_place_circular_image_size"
@@ -36,6 +38,7 @@
                 android:src="@mipmap/ic_launcher_round"
                 app:civ_border_color="@color/circular_image_border_color" />
 
+            <!-- Container for Name + Description -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,6 +46,7 @@
                 android:layout_marginEnd="@dimen/item_happy_place_ll_marginEnd"
                 android:orientation="vertical">
 
+                <!-- Name (Title) -->
                 <TextView
                     android:id="@+id/tvTitle"
                     android:layout_width="match_parent"
@@ -52,6 +56,7 @@
                     android:textStyle="bold"
                     tools:text="Name" />
 
+                <!-- Description -->
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
@@ -60,7 +65,9 @@
                     android:textSize="@dimen/item_happy_place_description_textSize"
                     tools:text="Description" />
             </LinearLayout>
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
