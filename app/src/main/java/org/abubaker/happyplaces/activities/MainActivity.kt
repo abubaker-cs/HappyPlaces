@@ -123,11 +123,14 @@ class MainActivity : AppCompatActivity() {
 
         // Bind the edit feature class to recyclerview
         val editSwipeHandler = object : SwipeToEditCallback(this) {
+
+            //
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 // Call the adapter function when it is swiped
                 val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
 
+                // Send us to the add place activity screen, so we can edit the Activity
                 adapter.notifyEditItem(
                     this@MainActivity,
                     viewHolder.adapterPosition,

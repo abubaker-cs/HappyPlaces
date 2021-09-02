@@ -48,6 +48,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private var mLatitude: Double = 0.0
     private var mLongitude: Double = 0.0
 
+    // A variable for data model class in which we will receive the details to edit.
+    private var mHappyPlaceDetails: HappyPlaceModel? = null
+
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -77,7 +80,15 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             onBackPressed()
         }
 
-        // Initialize DatePicker
+        // Assign the details to the variable of data model class which we have created
+        // above the details which we will receive through intent.
+        if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
+            mHappyPlaceDetails =
+                intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+        }
+
+        // Initialize DatePicker - create an OnDateSetListener
+        // https://www.tutorialkart.com/kotlin-android/android-datepicker-kotlin-example/
         dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, month)
@@ -90,6 +101,26 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
         // We are calling it twice - it will help in auto-updating the date
         updateDateInView()
+
+
+        // Filling the existing details to the UI components to edit.
+        if (mHappyPlaceDetails != null) {
+            supportActionBar?.title = "Edit Happy Place"
+
+            binding.etTitle.setText(mHappyPlaceDetails!!.title)
+            binding.etDescription.setText(mHappyPlaceDetails!!.description)
+            binding.etDate.setText(mHappyPlaceDetails!!.date)
+            binding.etLocation.setText(mHappyPlaceDetails!!.location)
+            mLatitude = mHappyPlaceDetails!!.latitude
+            mLongitude = mHappyPlaceDetails!!.longitude
+
+            saveImageToInternalStorage = Uri.parse(mHappyPlaceDetails!!.image)
+
+            binding.ivPlaceImage.setImageURI(saveImageToInternalStorage)
+
+            binding.btnSave.text = "UPDATE"
+        }
+        // END
 
         // this = Because our AddHappyPlaceActivity is actually = View.OnClickListeners
         // IMPORTANT: It will BIND the DatePicker to this TextField = et_date,

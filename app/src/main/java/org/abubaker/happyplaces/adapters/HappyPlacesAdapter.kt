@@ -90,19 +90,25 @@ open class HappyPlacesAdapter(
 
     }
 
-    // Create a function to edit the happy place details which is inserted earlier and pass the details through intent.
     /**
      * A function to edit the added happy place detail and pass the existing details through intent.
      */
     fun notifyEditItem(activity: Activity, position: Int, requestCode: Int) {
+
+        // It will send us to AddHappyPlaceActivity
         val intent = Intent(context, AddHappyPlaceActivity::class.java)
+
+        // We are also packaging extra information to be sent to the intended view
         intent.putExtra(MainActivity.EXTRA_PLACE_DETAILS, list[position])
+
+        // Activity is started with requestCode
         activity.startActivityForResult(
             intent,
             requestCode
-        ) // Activity is started with requestCode
+        )
 
-        notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
+        // Notify to the adapter any registered observers that the item at position has changed.
+        notifyItemChanged(position)
     }
 
     // STEP 02 - Create an interface
