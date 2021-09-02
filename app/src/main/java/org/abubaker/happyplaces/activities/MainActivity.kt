@@ -8,12 +8,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import org.abubaker.happyplaces.R
 import org.abubaker.happyplaces.adapters.HappyPlacesAdapter
 import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ActivityMainBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
+import org.abubaker.happyplaces.utils.SwipeToEditCallback
 
 class MainActivity : AppCompatActivity() {
 
@@ -117,6 +120,26 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+
+        // Bind the edit feature class to recyclerview
+        val editSwipeHandler = object : SwipeToEditCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                // Call the adapter function when it is swiped
+                val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
+
+                adapter.notifyEditItem(
+                    this@MainActivity,
+                    viewHolder.adapterPosition,
+                    ADD_PLACE_ACTIVITY_REQUEST_CODE
+                )
+
+            }
+        }
+
+        val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+        editItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
+
     }
 
     /**
