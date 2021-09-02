@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 // Select the Activity which we want to run, i.e. HappyPlaceDetailActivity
                 val intent = Intent(this@MainActivity, HappyPlaceDetailActivity::class.java)
 
-                //
+                // PutExtra will automatically rely on Parcelable
                 intent.putExtra(EXTRA_PLACE_DETAILS, model)
 
                 // Start the Activity

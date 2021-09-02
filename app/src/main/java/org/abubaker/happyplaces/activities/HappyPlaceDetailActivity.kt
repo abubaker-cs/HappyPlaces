@@ -30,8 +30,12 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
         if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
 
             // get the Serializable data model class with the details in it
+            // Note: To use the getParcelableExtra function you need to
+            // update your data class to Parcelable instead of Serializable.
             happyPlaceDetailModel =
-                intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+                intent.getParcelableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel?
+
+            // intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
 
         }
 
