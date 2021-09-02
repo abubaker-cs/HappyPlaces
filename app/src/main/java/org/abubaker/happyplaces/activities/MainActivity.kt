@@ -62,34 +62,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // It will call the function from the DatabaseHandler.kt file
-    private fun getHappyPlacesListFromLocalDB() {
-
-        // Importing the DatabaseHandler.kt file from different folder:
-        // i.e. import org.abubaker.happyplaces.database.DatabaseHandler
-        val dbHandler = DatabaseHandler(this)
-
-        // We are getting records from dbHandler.getHappyPlacesList()
-        val getHappyPlacesList: ArrayList<HappyPlaceModel> = dbHandler.getHappyPlacesList()
-
-        // Later on we will replace following code with RecyclerView
-        if (getHappyPlacesList.size > 0) {
-
-//            for (i in getHappyPlacesList) {
-//                Log.e("Title", i.title)
-//                Log.e("Description", i.description)
-//            }
-
-            binding.rvHappyPlacesList.visibility = View.VISIBLE
-            binding.tvNoRecordsAvailable.visibility = View.GONE
-            setupHappyPlacesRecyclerView(getHappyPlacesList)
-
-        } else {
-            binding.rvHappyPlacesList.visibility = View.GONE
-            binding.tvNoRecordsAvailable.visibility = View.VISIBLE
-        }
-
-    }
 
     /**
      * A function to populate the recyclerview to the UI.
@@ -140,8 +112,40 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        //
         val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
+
+        //
         editItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
+
+    }
+
+    // It will call the function from the DatabaseHandler.kt file
+    private fun getHappyPlacesListFromLocalDB() {
+
+        // Importing the DatabaseHandler.kt file from different folder:
+        // i.e. import org.abubaker.happyplaces.database.DatabaseHandler
+        val dbHandler = DatabaseHandler(this)
+
+        // We are getting records from dbHandler.getHappyPlacesList()
+        val getHappyPlacesList: ArrayList<HappyPlaceModel> = dbHandler.getHappyPlacesList()
+
+        // Later on we will replace following code with RecyclerView
+        if (getHappyPlacesList.size > 0) {
+
+//            for (i in getHappyPlacesList) {
+//                Log.e("Title", i.title)
+//                Log.e("Description", i.description)
+//            }
+
+            binding.rvHappyPlacesList.visibility = View.VISIBLE
+            binding.tvNoRecordsAvailable.visibility = View.GONE
+            setupHappyPlacesRecyclerView(getHappyPlacesList)
+
+        } else {
+            binding.rvHappyPlacesList.visibility = View.GONE
+            binding.tvNoRecordsAvailable.visibility = View.VISIBLE
+        }
 
     }
 
