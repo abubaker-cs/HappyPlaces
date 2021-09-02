@@ -18,7 +18,7 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
         // Inflate Layout (XML)
         binding = DataBindingUtil.setContentView(
             this@HappyPlaceDetailActivity,
-            R.layout.activity_add_happy_place
+            R.layout.activity_happy_place_detail
         )
 
         // Enabling Support for the Toolbar

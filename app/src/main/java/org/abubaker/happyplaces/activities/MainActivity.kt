@@ -100,10 +100,8 @@ class MainActivity : AppCompatActivity() {
         binding.rvHappyPlacesList.adapter = placesAdapter
 
 
-        // STEP 04 - Bind the onclickListener with adapter onClick function
-        placesAdapter.setOnClickListener(object :
-            HappyPlacesAdapter.OnClickListener {
-
+        // STEP 01 - Bind the onclickListener with adapter onClick function
+        placesAdapter.setOnClickListener(object : HappyPlacesAdapter.OnClickListener {
 
             // We are overriding our custom interface OnClickListener defined in the HappyPlacesAdapter.kt file
             override fun onClick(position: Int, model: HappyPlaceModel) {

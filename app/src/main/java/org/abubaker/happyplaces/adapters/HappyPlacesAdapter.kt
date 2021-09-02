@@ -2,6 +2,7 @@ package org.abubaker.happyplaces.adapters
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +14,7 @@ open class HappyPlacesAdapter(
     private var list: ArrayList<HappyPlaceModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    // STEP 02 - Add a variable for onClickListener interface.
+    // STEP 03 - Add a variable for onClickListener interface.
     private var onClickListener: OnClickListener? = null
 
     /**
@@ -29,6 +30,14 @@ open class HappyPlacesAdapter(
         val binding = ItemHappyPlaceBinding.inflate(layoutInflater, parent, false)
 
         return MyViewHolder(binding)
+    }
+
+    // STEP 04
+    /**
+     * A function to bind the onclickListener.
+     */
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
     }
 
     /**
@@ -77,16 +86,7 @@ open class HappyPlacesAdapter(
 
     }
 
-
-    // STEP 03
-    /**
-     * A function to bind the onclickListener.
-     */
-    fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
-    }
-
-    // STEP 01 - Create an interface
+    // STEP 02 - Create an interface
     interface OnClickListener {
         fun onClick(position: Int, model: HappyPlaceModel)
     }
