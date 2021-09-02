@@ -12,6 +12,10 @@ open class HappyPlacesAdapter(
     private val context: Context,
     private var list: ArrayList<HappyPlaceModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    // STEP 02 - Add a variable for onClickListener interface.
+    private var onClickListener: OnClickListener? = null
+
     /**
      * Inflates the item views which is designed in xml layout file
      *
@@ -48,6 +52,14 @@ open class HappyPlacesAdapter(
             holder.binding.tvTitle.text = model.title
             holder.binding.tvDescription.text = model.description
         }
+
+        // Finally add an onclickListener to the item.
+        holder.itemView.setOnClickListener {
+
+            if (onClickListener != null) {
+                onClickListener!!.onClick(position, model)
+            }
+        }
     }
 
     /**
@@ -58,6 +70,20 @@ open class HappyPlacesAdapter(
         // Returns Total # of Rows
         return list.size
 
+    }
+
+
+    // STEP 03
+    /**
+     * A function to bind the onclickListener.
+     */
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    // STEP 01 - Create an interface
+    interface OnClickListener {
+        fun onClick(position: Int, model: HappyPlaceModel)
     }
 
     /**

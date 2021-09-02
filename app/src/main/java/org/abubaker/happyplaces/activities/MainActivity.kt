@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == ADD_PLACE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 getHappyPlacesListFromLocalDB()
-            }else{
+            } else {
                 Log.e("Activity", "Cancelled or Back Pressed")
             }
         }
@@ -98,6 +98,22 @@ class MainActivity : AppCompatActivity() {
 
         val placesAdapter = HappyPlacesAdapter(this, happyPlacesList)
         binding.rvHappyPlacesList.adapter = placesAdapter
+
+
+        // STEP 04 - Bind the onclickListener with adapter onClick function
+        placesAdapter.setOnClickListener(object :
+            HappyPlacesAdapter.OnClickListener {
+
+            override fun onClick(position: Int, model: HappyPlaceModel) {
+
+                //
+                val intent = Intent(this@MainActivity, HappyPlaceDetailActivity::class.java)
+
+                //
+                startActivity(intent)
+
+            }
+        })
     }
 
     /**
