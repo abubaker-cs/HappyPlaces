@@ -83,8 +83,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // Assign the details to the variable of data model class which we have created
         // above the details which we will receive through intent.
         if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
-            mHappyPlaceDetails =
-                intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+            mHappyPlaceDetails = intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
         }
 
         // Initialize DatePicker - create an OnDateSetListener
