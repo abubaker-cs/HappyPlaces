@@ -59,8 +59,16 @@ data class HappyPlaceModel(
 // ) : Serializable
 
 /**
- * Serializable
- * It will allow to pass our OBJECT through the INTENT
- * It will convert our object into a FORMAT which we can pass between classes
+ * Often, when we develop applications, we have to transfer data from one Activity to another.
+ * Of course, we can not do that directly. The data we want to transfer must be included
+ * into a corresponding Intent object. To do that, our object must be either:
+ *
+ * 1. Serializable (Java Based - SLOW Performance)
+ * - Uses Reflection
+ * - Causes lot of Garbage Collection
+ *
+ * 2. Parcelable (Native Android SDK - Fast Performance)
+ * - No Reflection
+ * - Focused
  */
 
