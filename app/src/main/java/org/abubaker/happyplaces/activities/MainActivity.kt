@@ -109,6 +109,9 @@ class MainActivity : AppCompatActivity() {
                 // Select the Activity which we want to run, i.e. HappyPlaceDetailActivity
                 val intent = Intent(this@MainActivity, HappyPlaceDetailActivity::class.java)
 
+                //
+                intent.putExtra(EXTRA_PLACE_DETAILS, model)
+
                 // Start the Activity
                 startActivity(intent)
 
@@ -121,7 +124,8 @@ class MainActivity : AppCompatActivity() {
      * when we will be returning back after adding.
      */
     companion object {
-        private const val ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
+        var ADD_PLACE_ACTIVITY_REQUEST_CODE = 1
+        var EXTRA_PLACE_DETAILS = "extra_place_details"
     }
 
 }
