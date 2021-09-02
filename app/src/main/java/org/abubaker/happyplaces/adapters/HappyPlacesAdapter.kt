@@ -51,15 +51,20 @@ open class HappyPlacesAdapter(
             holder.binding.ivPlaceImage.setImageURI(Uri.parse(model.image))
             holder.binding.tvTitle.text = model.title
             holder.binding.tvDescription.text = model.description
-        }
 
-        // Finally add an onclickListener to the item.
-        holder.itemView.setOnClickListener {
+            // Finally add an onclickListener to the item.
+            holder.itemView.setOnClickListener {
 
-            if (onClickListener != null) {
-                onClickListener!!.onClick(position, model)
+                if (onClickListener != null) {
+
+                    // We are passing the POSITION of the clicked CARD / ROW
+                    // + We are passing our model = HappyPlaceModel.kt
+                    onClickListener!!.onClick(position, model)
+
+                }
             }
         }
+
     }
 
     /**

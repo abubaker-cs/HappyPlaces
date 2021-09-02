@@ -104,12 +104,14 @@ class MainActivity : AppCompatActivity() {
         placesAdapter.setOnClickListener(object :
             HappyPlacesAdapter.OnClickListener {
 
+
+            // We are overriding our custom interface OnClickListener defined in the HappyPlacesAdapter.kt file
             override fun onClick(position: Int, model: HappyPlaceModel) {
 
-                //
+                // Select the Activity which we want to run, i.e. HappyPlaceDetailActivity
                 val intent = Intent(this@MainActivity, HappyPlaceDetailActivity::class.java)
 
-                //
+                // Start the Activity
                 startActivity(intent)
 
             }
