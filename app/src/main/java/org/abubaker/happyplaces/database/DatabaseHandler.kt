@@ -136,30 +136,51 @@ class DatabaseHandler(context: Context) :
         return happyPlaceList
     }
 
-    // Creating a function to edit/update the existing happy place detail.
     /**
      * Function to update record
      */
     fun updateHappyPlace(happyPlace: HappyPlaceModel): Int {
+
+        // We need a database that is writeable
         val db = this.writableDatabase
+
+        // Creates an empty set of values using the default initial size
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, happyPlace.title) // HappyPlaceModelClass TITLE
-        contentValues.put(KEY_IMAGE, happyPlace.image) // HappyPlaceModelClass IMAGE
-        contentValues.put(
-            KEY_DESCRIPTION,
-            happyPlace.description
-        ) // HappyPlaceModelClass DESCRIPTION
-        contentValues.put(KEY_DATE, happyPlace.date) // HappyPlaceModelClass DATE
-        contentValues.put(KEY_LOCATION, happyPlace.location) // HappyPlaceModelClass LOCATION
-        contentValues.put(KEY_LATITUDE, happyPlace.latitude) // HappyPlaceModelClass LATITUDE
-        contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // HappyPlaceModelClass LONGITUDE
 
-        // Updating Row
-        val success =
-            db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
-        //2nd argument is String containing nullColumnHack
+        // Title
+        contentValues.put(KEY_TITLE, happyPlace.title)
 
-        db.close() // Closing database connection
+        // Image
+        contentValues.put(KEY_IMAGE, happyPlace.image)
+
+        // Description
+        contentValues.put(KEY_DESCRIPTION, happyPlace.description)
+
+        // Date
+        contentValues.put(KEY_DATE, happyPlace.date)
+
+        // Location
+        contentValues.put(KEY_LOCATION, happyPlace.location)
+
+        // LATITUDE
+        contentValues.put(KEY_LATITUDE, happyPlace.latitude)
+
+        // LONGITUDE
+        contentValues.put(KEY_LONGITUDE, happyPlace.longitude)
+
+        // We want to update the database with contentValues
+        // Note: 2nd argument is String containing nullColumnHack
+        val success = db.update(
+            TABLE_HAPPY_PLACE,
+            contentValues,
+            KEY_ID + "=" + happyPlace.id,
+            null
+        )
+
+        // Closing database connection
+        db.close()
+
+        // Return results
         return success
     }
 }
