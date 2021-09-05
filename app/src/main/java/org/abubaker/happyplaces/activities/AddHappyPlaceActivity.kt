@@ -49,6 +49,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     private var mLongitude: Double = 0.0
 
     // A variable for data model class in which we will receive the details to edit.
+    // private var mHappyPlaceDetails: HappyPlaceModel? = null
     private var mHappyPlaceDetails: HappyPlaceModel? = null
 
 
@@ -83,7 +84,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // Assign the details to the variable of data model class which we have created
         // above the details which we will receive through intent.
         if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
-            mHappyPlaceDetails = intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+            // mHappyPlaceDetails = intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+            mHappyPlaceDetails = intent.getParcelableExtra(MainActivity.EXTRA_PLACE_DETAILS) as? HappyPlaceModel
         }
 
         // Initialize DatePicker - create an OnDateSetListener
@@ -176,7 +178,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
             // Save Button
             R.id.btn_save -> {
-                // TODO save the Data Model to the database
+                // save the Data Model to the database
                 // validate first
 
                 when {
@@ -199,7 +201,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
                     else -> {
 
-                        val HappyPlaceModel = HappyPlaceModel(
+                        val happyPlaceModel = HappyPlaceModel(
                             0,
                             binding.etTitle.text.toString(),
                             saveImageToInternalStorage.toString(),
@@ -213,28 +215,29 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         // Refers to the DatabaseHandler.kt class
                         val dbHandler = DatabaseHandler(this)
 
-                        // Insert data into the selected database
-                        val addHappyPlace = dbHandler.addHappyPlace(HappyPlaceModel)
+                        // Call add or update details conditionally
+                        if (mHappyPlaceDetails == null) {
+                            // Insert data into the selected database
+                            val addHappyPlace = dbHandler.addHappyPlace(happyPlaceModel)
 
+                            // If record was saved successfully
+                            if (addHappyPlace > 0) {
 
-                        // If record was saved successfully
-                        if (addHappyPlace > 0) {
+                                // Send RESULT to the MainActivity (using companion variable)
+                                setResult(Activity.RESULT_OK);
 
-                            // Send RESULT to the MainActivity (using companion variable)
-                            setResult(Activity.RESULT_OK)
+                                // Finishes the activity
+                                finish()
+                            }
+                        } else {
+                            val updateHappyPlace = dbHandler.updateHappyPlace(happyPlaceModel)
 
-                            // Finishes the activity
-                            finish()
-
-                            // Displays success message
-                            // Toast.makeText(
-                            //     this,
-                            //     "The happy place details are inserted successfully",
-                            //     Toast.LENGTH_LONG
-                            // ).show()
-
+                            if (updateHappyPlace > 0) {
+                                setResult(Activity.RESULT_OK);
+                                finish()//finishing activity
+                            }
                         }
-
+                        // END
 
                     }
 
