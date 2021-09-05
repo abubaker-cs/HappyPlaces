@@ -132,7 +132,7 @@ class DatabaseHandler(context: Context) :
             return ArrayList()
         }
 
-        // Return the List of REcords
+        // Return the List of Records
         return happyPlaceList
     }
 
@@ -170,12 +170,7 @@ class DatabaseHandler(context: Context) :
 
         // We want to update the database with contentValues
         // Note: 2nd argument is String containing nullColumnHack
-        val success = db.update(
-            TABLE_HAPPY_PLACE,
-            contentValues,
-            KEY_ID + "=" + happyPlace.id,
-            null
-        )
+        val success = db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
 
         // Closing database connection
         db.close()
