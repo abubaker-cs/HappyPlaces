@@ -218,7 +218,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
                         // Call add or update details conditionally
                         if (mHappyPlaceDetails == null) {
-                            // Insert data into the selected database
+
+                            // Add: New Entry
                             val addHappyPlace = dbHandler.addHappyPlace(happyPlaceModel)
 
                             // If record was saved successfully
@@ -231,14 +232,20 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 finish()
                             }
                         } else {
+
+                            // UPDATE: Existing Entry
                             val updateHappyPlace = dbHandler.updateHappyPlace(happyPlaceModel)
 
+                            // If record was saved successfully
                             if (updateHappyPlace > 0) {
+
+                                // Send RESULT to the MainActivity (using companion variable)
                                 setResult(Activity.RESULT_OK);
+
+                                // Finishes the activity
                                 finish()//finishing activity
                             }
                         }
-                        // END
 
                     }
 
