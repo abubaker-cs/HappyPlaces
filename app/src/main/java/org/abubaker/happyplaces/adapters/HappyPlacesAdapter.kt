@@ -131,11 +131,9 @@ open class HappyPlacesAdapter(
             list.removeAt(position)
 
             /*
-              Inform the RecyclerView to update view
-
-              Notify any registered observers that the item previously located at <code>position</code>
+              Notify any registered observers that the item previously located at position
               has been removed from the data set. The items previously located at and after
-              <code>position</code> may now be found at <code>oldPosition - 1</code>.
+              position may now be found at oldPosition - 1.
             */
             notifyItemRemoved(position)
         }
