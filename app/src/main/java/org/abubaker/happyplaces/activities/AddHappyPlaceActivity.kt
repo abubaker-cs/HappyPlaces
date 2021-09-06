@@ -202,8 +202,13 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
                     else -> {
 
+                        /**
+                         * VERY IMPORTANT:
+                         * ===============
+                         * NEW RECORD = ID : 0
+                         * EDITING RECORD = ID : current_id
+                         */
                         val happyPlaceModel = HappyPlaceModel(
-                            // Changing the id:0 to id:active if it is for edit.
                             if (mHappyPlaceDetails == null) 0 else mHappyPlaceDetails!!.id,
                             binding.etTitle.text.toString(),
                             saveImageToInternalStorage.toString(),

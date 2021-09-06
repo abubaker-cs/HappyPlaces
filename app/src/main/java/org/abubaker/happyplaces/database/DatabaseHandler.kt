@@ -51,17 +51,33 @@ class DatabaseHandler(context: Context) :
      * Function to insert a Happy Place details to SQLite Database.
      */
     fun addHappyPlace(happyPlace: HappyPlaceModel): Long {
+
+        // We need to select current database for storing values
         val db = this.writableDatabase
 
-        // Based on HappyPlaceModelClass
+        // Creates an empty set of values using the default initial size
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, happyPlace.title) //  TITLE
-        contentValues.put(KEY_IMAGE, happyPlace.image) // IMAGE
-        contentValues.put(KEY_DESCRIPTION, happyPlace.description) // DESCRIPTION
-        contentValues.put(KEY_DATE, happyPlace.date) // DATE
-        contentValues.put(KEY_LOCATION, happyPlace.location) // LOCATION
-        contentValues.put(KEY_LATITUDE, happyPlace.latitude) // LATITUDE
-        contentValues.put(KEY_LONGITUDE, happyPlace.longitude) // LONGITUDE
+
+        // TITLE
+        contentValues.put(KEY_TITLE, happyPlace.title)
+
+        // IMAGE
+        contentValues.put(KEY_IMAGE, happyPlace.image)
+
+        // DESCRIPTION
+        contentValues.put(KEY_DESCRIPTION, happyPlace.description)
+
+        // DATE
+        contentValues.put(KEY_DATE, happyPlace.date)
+
+        // LOCATION
+        contentValues.put(KEY_LOCATION, happyPlace.location)
+
+        // LATITUDE
+        contentValues.put(KEY_LATITUDE, happyPlace.latitude)
+
+        // LONGITUDE
+        contentValues.put(KEY_LONGITUDE, happyPlace.longitude)
 
         // Inserting Row, 2nd argument is String containing nullColumnHack
         val result = db.insert(TABLE_HAPPY_PLACE, null, contentValues)
@@ -78,15 +94,11 @@ class DatabaseHandler(context: Context) :
      */
     fun updateHappyPlace(happyPlace: HappyPlaceModel): Int {
 
-        Log.e("ISSUE", "01 Starting updateHappyPlace() ")
-
-        // We need a database that is writeable
+        // We need to select current database for storing values
         val db = this.writableDatabase
 
         // Creates an empty set of values using the default initial size
         val contentValues = ContentValues()
-
-        Log.e("ISSUE", "02 DB Selected")
 
         // Title
         contentValues.put(KEY_TITLE, happyPlace.title)
@@ -109,20 +121,12 @@ class DatabaseHandler(context: Context) :
         // LONGITUDE
         contentValues.put(KEY_LONGITUDE, happyPlace.longitude)
 
-        Log.e("ISSUE", "03 contentValues Prepared ")
-
         // We want to update the database with contentValues
         // Note: 2nd argument is String containing nullColumnHack
         val success = db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
 
-        Log.e("ISSUE", "04 success Query sent ")
-
         // Closing database connection
         db.close()
-
-        Log.e("ISSUE", "05 DB Closed ")
-
-        Log.e("ISSUE", "06 Returning success ")
 
         // Return results
         return success
