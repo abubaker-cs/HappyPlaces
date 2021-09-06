@@ -2,7 +2,6 @@ package org.abubaker.happyplaces.models
 
 import android.os.Parcel
 import android.os.Parcelable
-import java.io.Serializable
 
 /**
  * A Data Model Class for Happy Place details. We will you this data class in all over the project even when

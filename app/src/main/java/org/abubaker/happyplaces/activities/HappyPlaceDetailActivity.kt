@@ -1,11 +1,10 @@
 package org.abubaker.happyplaces.activities
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import org.abubaker.happyplaces.R
-import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import org.abubaker.happyplaces.databinding.ActivityHappyPlaceDetailBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
