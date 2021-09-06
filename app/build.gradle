@@ -53,6 +53,10 @@ dependencies {
     // DEXTER (Depreciated):
     // It simplifies the process of requesting permissions at runtime.
     implementation 'com.karumi:dexter:6.2.3'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+
+    // Google Places
+    implementation 'com.google.android.libraries.places:2.1.0'
 
     // For Debugging DB Entries
     debugImplementation 'im.dino:dbinspector:4.0.0@arr'
