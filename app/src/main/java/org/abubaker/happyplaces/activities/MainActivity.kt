@@ -15,6 +15,7 @@ import org.abubaker.happyplaces.adapters.HappyPlacesAdapter
 import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ActivityMainBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
+import org.abubaker.happyplaces.utils.SwipeToDeleteCallback
 import org.abubaker.happyplaces.utils.SwipeToEditCallback
 
 class MainActivity : AppCompatActivity() {
@@ -61,6 +62,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // It will call the function from the DatabaseHandler.kt file
+    private fun getHappyPlacesListFromLocalDB() {
+
+        // Importing the DatabaseHandler.kt file from different folder:
+        // i.e. import org.abubaker.happyplaces.database.DatabaseHandler
+        val dbHandler = DatabaseHandler(this)
+
+        // We are getting records from dbHandler.getHappyPlacesList()
+        val getHappyPlacesList: ArrayList<HappyPlaceModel> = dbHandler.getHappyPlacesList()
+
+        // Later on we will replace following code with RecyclerView
+        if (getHappyPlacesList.size > 0) {
+
+            binding.rvHappyPlacesList.visibility = View.VISIBLE
+            binding.tvNoRecordsAvailable.visibility = View.GONE
+            setupHappyPlacesRecyclerView(getHappyPlacesList)
+
+        } else {
+            binding.rvHappyPlacesList.visibility = View.GONE
+            binding.tvNoRecordsAvailable.visibility = View.VISIBLE
+        }
+
+    }
 
     /**
      * A function to populate the recyclerview to the UI.
@@ -117,29 +141,20 @@ class MainActivity : AppCompatActivity() {
         //
         editItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
 
-    }
+        // Bind the delete feature class to recyclerview)
+        val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
-    // It will call the function from the DatabaseHandler.kt file
-    private fun getHappyPlacesListFromLocalDB() {
+                // Call the adapter function when it is swiped for delete
+                val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
 
-        // Importing the DatabaseHandler.kt file from different folder:
-        // i.e. import org.abubaker.happyplaces.database.DatabaseHandler
-        val dbHandler = DatabaseHandler(this)
-
-        // We are getting records from dbHandler.getHappyPlacesList()
-        val getHappyPlacesList: ArrayList<HappyPlaceModel> = dbHandler.getHappyPlacesList()
-
-        // Later on we will replace following code with RecyclerView
-        if (getHappyPlacesList.size > 0) {
-
-            binding.rvHappyPlacesList.visibility = View.VISIBLE
-            binding.tvNoRecordsAvailable.visibility = View.GONE
-            setupHappyPlacesRecyclerView(getHappyPlacesList)
-
-        } else {
-            binding.rvHappyPlacesList.visibility = View.GONE
-            binding.tvNoRecordsAvailable.visibility = View.VISIBLE
+                getHappyPlacesListFromLocalDB() // Gets the latest list from the local database after item being delete from it.
+                // END
+            }
         }
+        val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
+        deleteItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
 
     }
 

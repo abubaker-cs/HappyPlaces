@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.abubaker.happyplaces.activities.AddHappyPlaceActivity
 import org.abubaker.happyplaces.activities.MainActivity
+import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ItemHappyPlaceBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
@@ -34,6 +35,8 @@ open class HappyPlacesAdapter(
 
         return MyViewHolder(binding)
     }
+
+
 
     // STEP 04
     /**
@@ -108,6 +111,20 @@ open class HappyPlacesAdapter(
 
         // Notify to the adapter any registered observers that the item at position has changed.
         notifyItemChanged(position)
+    }
+
+    /**
+     * A function to delete the added happy place detail from the local storage.
+     */
+    fun removeAt(position: Int) {
+
+        val dbHandler = DatabaseHandler(context)
+        val isDeleted = dbHandler.deleteHappyPlace(list[position])
+
+        if (isDeleted > 0) {
+            list.removeAt(position)
+            notifyItemRemoved(position)
+        }
     }
 
     // STEP 02 - Create an interface
