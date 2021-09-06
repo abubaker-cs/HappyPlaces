@@ -14,6 +14,13 @@ import org.abubaker.happyplaces.R
 /**
  * A abstract class which we will use for delete feature.
  */
+
+/**
+ * Changed:
+ * 1. Direction: ItemTouchHelper.LEFT
+ * 2. ICON: ic_delete_white_24dp
+ * 3. Color: #f44336
+ */
 abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
     private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.ic_delete_white_24dp)
