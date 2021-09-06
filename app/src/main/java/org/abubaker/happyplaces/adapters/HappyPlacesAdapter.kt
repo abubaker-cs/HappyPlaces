@@ -118,9 +118,13 @@ open class HappyPlacesAdapter(
      */
     fun removeAt(position: Int) {
 
+        // Select the database handler
         val dbHandler = DatabaseHandler(context)
+
+        // This function is defined in the DatabaseHandler.kt file to delete happyPlace details
         val isDeleted = dbHandler.deleteHappyPlace(list[position])
 
+        //
         if (isDeleted > 0) {
             list.removeAt(position)
             notifyItemRemoved(position)

@@ -122,7 +122,8 @@ class DatabaseHandler(context: Context) :
 
         // We want to update the database with contentValues
         // Note: 2nd argument is String containing nullColumnHack
-        val success = db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
+        val success =
+            db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
 
         // Closing database connection
         db.close()
@@ -135,11 +136,18 @@ class DatabaseHandler(context: Context) :
      * Function to delete happy place details.
      */
     fun deleteHappyPlace(happyPlace: HappyPlaceModel): Int {
+
+        // Select the database
         val db = this.writableDatabase
-        // Deleting Row
+
+        // Deleting Row (note: 2nd argument is String containing nullColumnHack)
         val success = db.delete(TABLE_HAPPY_PLACE, KEY_ID + "=" + happyPlace.id, null)
-        //2nd argument is String containing nullColumnHack
-        db.close() // Closing database connection
+
+
+        // Closing database connection
+        db.close()
+
+        // Return success result
         return success
     }
 

@@ -19,7 +19,7 @@ import org.abubaker.happyplaces.R
  * Changed:
  * 1. Direction: ItemTouchHelper.LEFT
  * 2. ICON: ic_delete_white_24dp
- * 3. Color: #f44336
+ * 3. Color: #f44336 (reddish)
  */
 abstract class SwipeToDeleteCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 

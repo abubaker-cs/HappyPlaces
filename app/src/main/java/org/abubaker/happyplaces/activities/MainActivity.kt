@@ -116,10 +116,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // Bind the edit feature class to recyclerview
+        /**
+         * Bind the EDIT feature class to recyclerview
+         */
         val editSwipeHandler = object : SwipeToEditCallback(this) {
 
-            //
+            // onSwiped()
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 // Call the adapter function when it is swiped
@@ -137,22 +139,28 @@ class MainActivity : AppCompatActivity() {
 
         //
         val editItemTouchHelper = ItemTouchHelper(editSwipeHandler)
-
-        //
         editItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
 
-        // Bind the delete feature class to recyclerview)
+        /**
+         * Bind the DELETE feature class to recyclerview
+         */
         val deleteSwipeHandler = object : SwipeToDeleteCallback(this) {
+
+            // onSwiped()
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
                 // Call the adapter function when it is swiped for delete
                 val adapter = binding.rvHappyPlacesList.adapter as HappyPlacesAdapter
+
+                // Remove current record
                 adapter.removeAt(viewHolder.adapterPosition)
 
-                getHappyPlacesListFromLocalDB() // Gets the latest list from the local database after item being delete from it.
-                // END
+                // Refresh the LIST after delete the selected record
+                getHappyPlacesListFromLocalDB()
             }
         }
+
+        //
         val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
         deleteItemTouchHelper.attachToRecyclerView(binding.rvHappyPlacesList)
 
