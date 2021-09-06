@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
 class DatabaseHandler(context: Context) :
@@ -73,6 +74,63 @@ class DatabaseHandler(context: Context) :
     // END
 
     /**
+     * Function to update record
+     */
+    fun updateHappyPlace(happyPlace: HappyPlaceModel): Int {
+
+        Log.e("ISSUE", "01 Starting updateHappyPlace() ")
+
+        // We need a database that is writeable
+        val db = this.writableDatabase
+
+        // Creates an empty set of values using the default initial size
+        val contentValues = ContentValues()
+
+        Log.e("ISSUE", "02 DB Selected")
+
+        // Title
+        contentValues.put(KEY_TITLE, happyPlace.title)
+
+        // Image
+        contentValues.put(KEY_IMAGE, happyPlace.image)
+
+        // Description
+        contentValues.put(KEY_DESCRIPTION, happyPlace.description)
+
+        // Date
+        contentValues.put(KEY_DATE, happyPlace.date)
+
+        // Location
+        contentValues.put(KEY_LOCATION, happyPlace.location)
+
+        // LATITUDE
+        contentValues.put(KEY_LATITUDE, happyPlace.latitude)
+
+        // LONGITUDE
+        contentValues.put(KEY_LONGITUDE, happyPlace.longitude)
+
+        Log.e("ISSUE", "03 contentValues Prepared ")
+
+        // We want to update the database with contentValues
+        // Note: 2nd argument is String containing nullColumnHack
+        val success = db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
+
+        Log.e("ISSUE", "04 success Query sent ")
+
+        // Closing database connection
+        db.close()
+
+        Log.e("ISSUE", "05 DB Closed ")
+
+        Log.e("ISSUE", "06 Returning success ")
+
+        // Return results
+        return success
+    }
+
+
+
+    /**
      * Function to read all the list of Happy Places data which are inserted.
      */
     fun getHappyPlacesList(): ArrayList<HappyPlaceModel> {
@@ -134,48 +192,5 @@ class DatabaseHandler(context: Context) :
 
         // Return the List of Records
         return happyPlaceList
-    }
-
-    /**
-     * Function to update record
-     */
-    fun updateHappyPlace(happyPlace: HappyPlaceModel): Int {
-
-        // We need a database that is writeable
-        val db = this.writableDatabase
-
-        // Creates an empty set of values using the default initial size
-        val contentValues = ContentValues()
-
-        // Title
-        contentValues.put(KEY_TITLE, happyPlace.title)
-
-        // Image
-        contentValues.put(KEY_IMAGE, happyPlace.image)
-
-        // Description
-        contentValues.put(KEY_DESCRIPTION, happyPlace.description)
-
-        // Date
-        contentValues.put(KEY_DATE, happyPlace.date)
-
-        // Location
-        contentValues.put(KEY_LOCATION, happyPlace.location)
-
-        // LATITUDE
-        contentValues.put(KEY_LATITUDE, happyPlace.latitude)
-
-        // LONGITUDE
-        contentValues.put(KEY_LONGITUDE, happyPlace.longitude)
-
-        // We want to update the database with contentValues
-        // Note: 2nd argument is String containing nullColumnHack
-        val success = db.update(TABLE_HAPPY_PLACE, contentValues, KEY_ID + "=" + happyPlace.id, null)
-
-        // Closing database connection
-        db.close()
-
-        // Return results
-        return success
     }
 }

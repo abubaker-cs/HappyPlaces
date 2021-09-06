@@ -203,7 +203,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                     else -> {
 
                         val happyPlaceModel = HappyPlaceModel(
-                            0,
+                            // Changing the id:0 to id:active if it is for edit.
+                            if (mHappyPlaceDetails == null) 0 else mHappyPlaceDetails!!.id,
                             binding.etTitle.text.toString(),
                             saveImageToInternalStorage.toString(),
                             binding.etDescription.text.toString(),
@@ -220,6 +221,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         if (mHappyPlaceDetails == null) {
 
                             // Add: New Entry
+
                             val addHappyPlace = dbHandler.addHappyPlace(happyPlaceModel)
 
                             // If record was saved successfully
@@ -244,6 +246,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
                                 // Finishes the activity
                                 finish()//finishing activity
+
                             }
                         }
 
