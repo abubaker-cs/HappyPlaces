@@ -132,11 +132,6 @@ class MainActivity : AppCompatActivity() {
         // Later on we will replace following code with RecyclerView
         if (getHappyPlacesList.size > 0) {
 
-//            for (i in getHappyPlacesList) {
-//                Log.e("Title", i.title)
-//                Log.e("Description", i.description)
-//            }
-
             binding.rvHappyPlacesList.visibility = View.VISIBLE
             binding.tvNoRecordsAvailable.visibility = View.GONE
             setupHappyPlacesRecyclerView(getHappyPlacesList)
