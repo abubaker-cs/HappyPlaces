@@ -37,7 +37,6 @@ open class HappyPlacesAdapter(
     }
 
 
-
     // STEP 04
     /**
      * A function to bind the onclickListener.
@@ -122,11 +121,22 @@ open class HappyPlacesAdapter(
         val dbHandler = DatabaseHandler(context)
 
         // This function is defined in the DatabaseHandler.kt file to delete happyPlace details
+        // We are storing the results of delete query in the isDeleted variable
         val isDeleted = dbHandler.deleteHappyPlace(list[position])
 
-        //
+        // If the delete action was successful, then:
         if (isDeleted > 0) {
+
+            // Remove the record from the RecyclerView
             list.removeAt(position)
+
+            /*
+              Inform the RecyclerView to update view
+
+              Notify any registered observers that the item previously located at <code>position</code>
+              has been removed from the data set. The items previously located at and after
+              <code>position</code> may now be found at <code>oldPosition - 1</code>.
+            */
             notifyItemRemoved(position)
         }
     }

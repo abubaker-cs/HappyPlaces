@@ -140,7 +140,11 @@ class DatabaseHandler(context: Context) :
         // Select the database
         val db = this.writableDatabase
 
-        // Deleting Row (note: 2nd argument is String containing nullColumnHack)
+        /*
+          Deleting Row and storing result in the success variable
+          QUERY: Delete record from the TABLE_HAPPY_PLACE with the selected ID from the database
+          (note: 2nd argument is String containing nullColumnHack)
+        */
         val success = db.delete(TABLE_HAPPY_PLACE, KEY_ID + "=" + happyPlace.id, null)
 
 
