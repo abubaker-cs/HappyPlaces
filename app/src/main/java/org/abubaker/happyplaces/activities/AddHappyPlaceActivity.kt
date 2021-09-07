@@ -148,6 +148,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // For saving into the DB
         binding.btnSave.setOnClickListener(this)
 
+        // Location (EditText)
+        binding.etLocation.setOnClickListener(this)
+
     }
 
     /**
