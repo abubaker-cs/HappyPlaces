@@ -57,6 +57,7 @@ dependencies {
 
     // Google Places
     implementation 'com.google.android.libraries.places:2.1.0'
+    implementation 'com.google.android.libraries.places:places:2.4.0'
 
     // For Debugging DB Entries
     debugImplementation 'im.dino:dbinspector:4.0.0@arr'

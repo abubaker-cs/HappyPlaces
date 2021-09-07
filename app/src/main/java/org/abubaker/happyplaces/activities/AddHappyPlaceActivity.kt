@@ -18,6 +18,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.google.android.libraries.places.api.Places
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -79,6 +80,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         // Navigate the main activity on clicking the back button inside the action bar.
         binding.toolbarAddPlace.setNavigationOnClickListener {
             onBackPressed()
+        }
+
+        /**
+         * Initialize the places sdk if it is not initialized earlier using the api key.
+         */
+        if (!Places.isInitialized()) {
+            Places.initialize(
+                this@AddHappyPlaceActivity,
+                resources.getString(R.string.google_maps_api_key)
+            )
         }
 
         // Assign the details to the variable of data model class which we have created
