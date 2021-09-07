@@ -24,6 +24,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import org.abubaker.happyplaces.BuildConfig
 import org.abubaker.happyplaces.R
 import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
@@ -85,10 +86,10 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         /**
          * Initialize the places sdk if it is not initialized earlier using the api key.
          */
+        // resources.getString(R.string.google_maps_api_key
         if (!Places.isInitialized()) {
             Places.initialize(
-                this@AddHappyPlaceActivity,
-                resources.getString(R.string.google_maps_api_key)
+                this@AddHappyPlaceActivity, BuildConfig.GMP_KEY
             )
         }
 
