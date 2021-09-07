@@ -87,6 +87,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
          * Initialize the places sdk if it is not initialized earlier using the api key.
          */
         // resources.getString(R.string.google_maps_api_key
+        // Hide your API Key: https://www.youtube.com/watch?v=X8lYNW_Or2o&ab_channel=GoogleMapsPlatform
         if (!Places.isInitialized()) {
             Places.initialize(
                 this@AddHappyPlaceActivity, BuildConfig.GMP_KEY
