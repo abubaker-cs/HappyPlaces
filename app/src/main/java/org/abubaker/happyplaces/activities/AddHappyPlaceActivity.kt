@@ -377,10 +377,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
             } else if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
 
+                // Extract "new place" from the received DATA
                 val place: Place = Autocomplete.getPlaceFromIntent(data!!)
 
+                // Address
                 binding.etLocation.setText(place.address)
+
+                // Latitude
                 mLatitude = place.latLng!!.latitude
+
+                // Longitude
                 mLongitude = place.latLng!!.longitude
             }
 
