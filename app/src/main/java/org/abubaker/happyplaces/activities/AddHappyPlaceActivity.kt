@@ -282,19 +282,22 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.et_location -> {
 
-                // Add an onClick event on the location for place picker
                 try {
 
-                    // These are the list of fields which we required is passed
+                    // List of our required fields
                     val fields = listOf(
-                        Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG,
+                        Place.Field.ID,
+                        Place.Field.NAME,
+                        Place.Field.LAT_LNG,
                         Place.Field.ADDRESS
                     )
 
                     // Start the autocomplete intent with a unique request code.
                     val intent =
-                        Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-                            .build(this@AddHappyPlaceActivity)
+                        Autocomplete.IntentBuilder(
+                            AutocompleteActivityMode.FULLSCREEN,
+                            fields
+                        ).build(this@AddHappyPlaceActivity)
 
                     //
                     startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE)
