@@ -375,6 +375,13 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                 // Update imageView: ivPlaceImage
                 binding.ivPlaceImage.setImageBitmap(thumbnail)
 
+            } else if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+
+                val place: Place = Autocomplete.getPlaceFromIntent(data!!)
+
+                binding.etLocation.setText(place.address)
+                mLatitude = place.latLng!!.latitude
+                mLongitude = place.latLng!!.longitude
             }
 
         }
