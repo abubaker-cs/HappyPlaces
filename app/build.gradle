@@ -5,6 +5,8 @@ plugins {
     id 'com.google.secrets_gradle_plugin' version '0.4'
 }
 
+// Secrets Gradle Plugin: https://github.com/google/secrets-gradle-plugin
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
