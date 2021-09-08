@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.MapActivity">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_map"
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--A support fragment is added for the map view.-->
+    <!-- A support fragment is added for the map view. -->
     <fragment
         android:id="@+id/map"
         class="com.google.android.gms.maps.SupportMapFragment"

@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity">
 
+        <!-- Places List (RecyclerView) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_happy_places_list"
             android:layout_width="match_parent"
@@ -15,6 +16,7 @@
             android:visibility="gone"
             tools:visibility="gone" />
 
+        <!-- MSG: No records available -->
         <TextView
             android:id="@+id/tv_no_records_available"
             android:layout_width="match_parent"
@@ -25,7 +27,7 @@
             android:visibility="visible"
             tools:visibility="visible" />
 
-        <!--Here the "fab_margin" is defined in the dimen.xml-->
+        <!-- FAB -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAddHappyPlace"
             android:layout_width="wrap_content"

@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.AddHappyPlaceActivity">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_add_place"
             android:layout_width="match_parent"
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/main_content_padding">
 
+                <!-- Title -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_title"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -59,6 +61,7 @@
                         android:textSize="@dimen/edit_text_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Description -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_description"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -80,6 +83,7 @@
                         android:textSize="@dimen/edit_text_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Date -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_date"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -107,6 +111,7 @@
                         android:textSize="@dimen/edit_text_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Location -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_location"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -132,6 +137,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Place Image -->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/iv_place_image"
                     android:layout_width="@dimen/add_screen_place_image_size"
@@ -146,6 +152,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/til_location" />
 
+                <!-- Button: Add image -->
                 <TextView
                     android:id="@+id/tv_add_image"
                     android:layout_width="wrap_content"
@@ -165,6 +172,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/til_location"
                     app:layout_constraintVertical_bias="0.019" />
 
+                <!-- Button: Save -->
                 <Button
                     android:id="@+id/btn_save"
                     android:layout_width="match_parent"
