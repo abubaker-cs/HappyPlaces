@@ -98,7 +98,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             MarkerOptions().position(position).title(mHappyPlaceDetails!!.location)
         )
 
-        // Important: Auto Zoom to our GeoLocation
+        // Important: Animate while Auto Zooming to our GeoLocation
         val newLatLngZoom = CameraUpdateFactory.newLatLngZoom(position, 15f)
         googleMap.animateCamera(newLatLngZoom)
 
