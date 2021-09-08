@@ -67,8 +67,14 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
 
         // Click event for button view on map
         binding.btnViewOnMap.setOnClickListener {
+
+            // Define our intent: MapActivity
             val intent = Intent(this@HappyPlaceDetailActivity, MapActivity::class.java)
+
+            // Assign Extra DATA to be Passed on
             intent.putExtra(MainActivity.EXTRA_PLACE_DETAILS, happyPlaceDetailModel)
+
+            // Initialize intent
             startActivity(intent)
         }
 
