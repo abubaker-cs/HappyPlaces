@@ -334,6 +334,8 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             Manifest.permission.ACCESS_COARSE_LOCATION
                         )
                         .withListener(object : MultiplePermissionsListener {
+
+                            //
                             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                                 if (report!!.areAllPermissionsGranted()) {
 
@@ -345,12 +347,14 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 }
                             }
 
+                            //
                             override fun onPermissionRationaleShouldBeShown(
                                 permissions: MutableList<PermissionRequest>?,
                                 token: PermissionToken?
                             ) {
                                 showRationalDialogForPermissions()
                             }
+
                         }).onSameThread()
                         .check()
                 }
@@ -581,17 +585,16 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    // Create a function to check the GPS is enabled or not
     /**
      * A function which is used to verify that the location or let's GPS is enable or not of the user's device.
      */
     private fun isLocationEnabled(): Boolean {
 
-        //
+        // We are asking for the Location Service
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        //
+        // Return if the Location Manager is Enabled or Disabled
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
