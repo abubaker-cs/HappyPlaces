@@ -90,12 +90,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         /**
          * Add a marker on the location using the latitude and longitude and move the camera to it.
          */
+        // Our GeoLocation retrieve from the data received
         val position = LatLng(
             mHappyPlaceDetails!!.latitude,
             mHappyPlaceDetails!!.longitude
         )
-        googleMap.addMarker(MarkerOptions().position(position).title(mHappyPlaceDetails!!.location))
+
+        // Our Marker
+        googleMap.addMarker(
+            MarkerOptions().position(position).title(mHappyPlaceDetails!!.location)
+        )
+
+        // Zoom Level
         val newLatLngZoom = CameraUpdateFactory.newLatLngZoom(position, 15f)
+
+        // Camera
         googleMap.animateCamera(newLatLngZoom)
     }
 
