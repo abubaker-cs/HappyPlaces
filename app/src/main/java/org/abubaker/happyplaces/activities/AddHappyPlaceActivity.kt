@@ -315,6 +315,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             // Current Location
             R.id.tv_select_current_location -> {
 
+                // If the Location is NOT enabled
                 if (!isLocationEnabled()) {
                     Toast.makeText(
                         this,
@@ -322,10 +323,14 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    // This will redirect you to settings from where you need to turn on the location provider.
+                    // Redirect the user to Enable Locaiton Provider in the device
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)
+
                 } else {
+
+                    // If the location is Enabled
+
                     // For Getting current location of user please have a look at below link for better understanding
                     // https://www.androdocs.com/kotlin/getting-current-location-latitude-longitude-in-android-using-kotlin.html
                     Dexter.withActivity(this)
@@ -335,7 +340,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                         )
                         .withListener(object : MultiplePermissionsListener {
 
-                            //
+                            // 01 Display Notification is Accessing Current Location is Enabled
                             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                                 if (report!!.areAllPermissionsGranted()) {
 
@@ -347,7 +352,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 }
                             }
 
-                            //
+                            // 02
                             override fun onPermissionRationaleShouldBeShown(
                                 permissions: MutableList<PermissionRequest>?,
                                 token: PermissionToken?
