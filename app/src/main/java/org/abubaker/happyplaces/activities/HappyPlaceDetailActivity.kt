@@ -52,7 +52,6 @@ class HappyPlaceDetailActivity : AppCompatActivity() {
             if (actionbar != null) {
                 actionbar!!.setDisplayHomeAsUpEnabled(true)
                 actionbar!!.title = happyPlaceDetailModel.title
-
             }
 
             // Navigate the main activity on clicking the back button inside the action bar.

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -14,7 +15,7 @@ import org.abubaker.happyplaces.databinding.ActivityHappyPlaceDetailBinding
 import org.abubaker.happyplaces.databinding.ActivityMapBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
-class MapActivity : AppCompatActivity() {
+class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     // Binding Object
     private lateinit var binding: ActivityMapBinding
@@ -34,12 +35,16 @@ class MapActivity : AppCompatActivity() {
 
 
         // Receives the details through intent and used further.
-        // START
         if (intent.hasExtra(MainActivity.EXTRA_PLACE_DETAILS)) {
-            mHappyPlaceDetails =
-                intent.getSerializableExtra(MainActivity.EXTRA_PLACE_DETAILS) as HappyPlaceModel
+
+            //
+            mHappyPlaceDetails = intent.getParcelableExtra(
+                MainActivity.EXTRA_PLACE_DETAILS
+            ) as HappyPlaceModel?
+
         }
 
+        // If we received the data
         if (mHappyPlaceDetails != null) {
 
             // Enabling Support for the Toolbar
@@ -51,6 +56,7 @@ class MapActivity : AppCompatActivity() {
             //
             if (actionbar != null) {
                 actionbar.setDisplayHomeAsUpEnabled(true)
+                actionbar.title = mHappyPlaceDetails!!.title
             }
 
             // Navigate the main activity on clicking the back button inside the action bar.
@@ -58,19 +64,18 @@ class MapActivity : AppCompatActivity() {
                 onBackPressed()
             }
 
-            //
+            // We are trying to retrieve #map from the activity_map.xml file
             val supportMapFragment: SupportMapFragment =
                 supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
-            //
+            // Sync Map
             supportMapFragment.getMapAsync(this)
         }
 
 
     }
 
-    // TODO (Step 4: After extending an interface adding the location pin to the map when the map is ready using the latitude and longitude.)
-    // START
+    // After extending an interface adding the location pin to the map when the map is ready using the latitude and longitude.)
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
