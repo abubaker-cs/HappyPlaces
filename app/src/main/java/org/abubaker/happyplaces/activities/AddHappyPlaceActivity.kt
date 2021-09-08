@@ -333,7 +333,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
                     // For Getting current location of user please have a look at below link for better understanding
                     // https://www.androdocs.com/kotlin/getting-current-location-latitude-longitude-in-android-using-kotlin.html
-                    Dexter.withActivity(this)
+                    Dexter.withContext(this)
                         .withPermissions(
                             Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION
@@ -352,7 +352,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                                 }
                             }
 
-                            // 02
+                            // 02 Ask user to provide permission for accessing Current Location
                             override fun onPermissionRationaleShouldBeShown(
                                 permissions: MutableList<PermissionRequest>?,
                                 token: PermissionToken?
