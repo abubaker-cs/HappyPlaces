@@ -1,8 +1,7 @@
 package org.abubaker.happyplaces.activities
 
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -11,7 +10,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import org.abubaker.happyplaces.R
-import org.abubaker.happyplaces.databinding.ActivityHappyPlaceDetailBinding
 import org.abubaker.happyplaces.databinding.ActivityMapBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
 
@@ -100,11 +98,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             MarkerOptions().position(position).title(mHappyPlaceDetails!!.location)
         )
 
-        // Zoom Level
+        // Important: Auto Zoom to our GeoLocation
         val newLatLngZoom = CameraUpdateFactory.newLatLngZoom(position, 15f)
-
-        // Camera
         googleMap.animateCamera(newLatLngZoom)
+
     }
 
 }
