@@ -621,25 +621,34 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
     /**
      * A function to request the current location. Using the fused location provider client.
+     * Reference: https://developer.android.com/training/location/retrieve-current
      */
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
 
-        //
+        // Variable to make a Location Request
         val mLocationRequest = LocationRequest()
 
-        //
+        // Parameter: Location Accuracy
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
+        // Parameter: How many milliseconds do we want to run this?
         mLocationRequest.interval = 0
+
+        // Parameter:
         mLocationRequest.fastestInterval = 0
+
+        // Parameter: How many updates
         mLocationRequest.numUpdates = 1
 
         //
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        //
+        // We are using our fused client to make a Location Request
+        // Note: mLocationCallback is defined below in a separate function
         mFusedLocationClient.requestLocationUpdates(
-            mLocationRequest, mLocationCallback,
+            mLocationRequest,
+            mLocationCallback,
             Looper.myLooper()
         )
     }
@@ -648,10 +657,10 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
      * A location callback object of fused location provider client where we will get the current location details.
      */
     private val mLocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
+        override fun onLocationResult(locationResult: LocationResult?) {
 
-            // Get the results
-            val mLastLocation: Location = locationResult.lastLocation
+            // Get the LAST location
+            val mLastLocation: Location = locationResult!!.lastLocation
 
             // Latitude
             mLatitude = mLastLocation.latitude
