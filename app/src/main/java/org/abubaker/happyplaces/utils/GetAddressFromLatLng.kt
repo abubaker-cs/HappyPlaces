@@ -129,7 +129,7 @@ class GetAddressFromLatLng(
      */
     fun getAddress() {
 
-        // This will execute the AsyncTask
+        // AsyncTask will do nothing unless it is executed
         execute()
 
     }
@@ -141,4 +141,5 @@ class GetAddressFromLatLng(
         fun onAddressFound(address: String?)
         fun onError()
     }
+
 }
