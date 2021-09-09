@@ -1,6 +1,7 @@
 package org.abubaker.happyplaces.activities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -9,10 +10,12 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
+import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.provider.MediaStore
 import android.provider.Settings
 import android.util.Log
@@ -20,6 +23,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.location.LocationManagerCompat.isLocationEnabled
 import androidx.databinding.DataBindingUtil
+import com.google.android.gms.location.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
@@ -59,6 +63,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     // private var mHappyPlaceDetails: HappyPlaceModel? = null
     private var mHappyPlaceDetails: HappyPlaceModel? = null
 
+    // A fused location client variable which will be used to get the user's current location
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+
 
     /**
      * This function is auto created by Android when the Activity Class is created.
@@ -87,6 +94,9 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         binding.toolbarAddPlace.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        // Initialize the Fused location variable
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         /**
          * Initialize the places sdk if it is not initialized earlier using the api key.
@@ -344,11 +354,15 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                                 if (report!!.areAllPermissionsGranted()) {
 
-                                    Toast.makeText(
-                                        this@AddHappyPlaceActivity,
-                                        "Location permission is granted. Now you can request for a current location.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    //
+                                    requestNewLocationData()
+
+                                    // Toast.makeText(
+                                    //    this@AddHappyPlaceActivity,
+                                    //    "Location permission is granted. Now you can request for a current location.",
+                                    //    Toast.LENGTH_SHORT
+                                    // ).show()
+
                                 }
                             }
 
@@ -603,6 +617,50 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
+    }
+
+    /**
+     * A function to request the current location. Using the fused location provider client.
+     */
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+
+        //
+        val mLocationRequest = LocationRequest()
+
+        //
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        //
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        //
+        mFusedLocationClient.requestLocationUpdates(
+            mLocationRequest, mLocationCallback,
+            Looper.myLooper()
+        )
+    }
+
+    /**
+     * A location callback object of fused location provider client where we will get the current location details.
+     */
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+
+            // Get the results
+            val mLastLocation: Location = locationResult.lastLocation
+
+            // Latitude
+            mLatitude = mLastLocation.latitude
+            Log.e("Current Latitude", "$mLatitude")
+
+            // Longitude
+            mLongitude = mLastLocation.longitude
+            Log.e("Current Longitude", "$mLongitude")
+        }
     }
 
     // Companion Objects
