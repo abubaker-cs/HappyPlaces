@@ -33,6 +33,8 @@ class GetAddressFromLatLng(
      * Background method of AsyncTask where the background operation will be performed.
      */
     override fun doInBackground(vararg params: Void?): String {
+
+        //
         try {
             /**
              * Returns an array of Addresses that are known to describe the
@@ -40,6 +42,7 @@ class GetAddressFromLatLng(
              */
             val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
 
+            //
             if (addressList != null && addressList.isNotEmpty()) {
                 val address: Address = addressList[0]
                 val sb = StringBuilder()
