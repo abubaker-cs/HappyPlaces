@@ -696,6 +696,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
 
             })
 
+            // This will execute the whole AsyncTask
             addressTask.getAddress()
 
         }
