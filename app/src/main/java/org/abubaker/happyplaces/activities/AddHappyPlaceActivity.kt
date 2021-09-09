@@ -634,7 +634,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
         // Parameter: How many milliseconds do we want to run this?
-        mLocationRequest.interval = 0
+        mLocationRequest.interval = 0 // 1000
 
         // Parameter:
         mLocationRequest.fastestInterval = 0
