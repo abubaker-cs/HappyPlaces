@@ -354,7 +354,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
                             override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                                 if (report!!.areAllPermissionsGranted()) {
 
-                                    //
+                                    // Request coordinates of the new location
                                     requestNewLocationData()
 
                                     // Toast.makeText(
@@ -622,6 +622,7 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
     /**
      * A function to request the current location. Using the fused location provider client.
      * Reference: https://developer.android.com/training/location/retrieve-current
+     * SuppressLint: It will help us in bypassing the missing permissions required by the API Call
      */
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
