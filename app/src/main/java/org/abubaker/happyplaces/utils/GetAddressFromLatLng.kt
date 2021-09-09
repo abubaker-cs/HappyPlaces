@@ -48,15 +48,27 @@ class GetAddressFromLatLng(
             // If the List is not empty, then:
             if (addressList != null && addressList.isNotEmpty()) {
 
-                //
+                // Get address list from the index-0
+                /**
+                 * A class representing an Address, i.e, a set of Strings describing a location.
+                 *
+                 * The address format is a simplified version of xAL (eXtensible Address Language)
+                 * http://www.oasis-open.org/committees/ciq/ciq.html#6
+                 */
                 val address: Address = addressList[0]
 
-                //
+                // We are creating a StringBuilder object
                 val sb = StringBuilder()
 
-                //
+                // In order to go through all the addresses which we have,
                 for (i in 0..address.maxAddressLineIndex) {
+
+                    // Since the ADDRESS object will return a lot of details, such as i.e:
+                    // Name, Address, Admin Area, Locality, Postal Code, Country, Latitude,
+                    // Longitude, Phone, URL. So we need to append , at the end of the parameters
+                    // so they can be easily separated
                     sb.append(address.getAddressLine(i)).append(",")
+
                 }
 
                 // Here we remove the last comma that we have added above from the address.
