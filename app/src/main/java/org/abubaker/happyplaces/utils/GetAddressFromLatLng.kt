@@ -34,7 +34,7 @@ class GetAddressFromLatLng(
      */
     override fun doInBackground(vararg params: Void?): String {
 
-        //
+        // Since our query using StringBuilder() can go wrong, that's why we need to catch error
         try {
             /**
              * Returns an array of Addresses that are known to describe the
@@ -71,21 +71,24 @@ class GetAddressFromLatLng(
 
                 }
 
-                // Here we remove the last comma that we have added above from the address.
+                // We will delete the last character , (comma) as it will not be needed
                 sb.deleteCharAt(sb.length - 1)
 
-                //
+                // Convert data to the String and return the list
                 return sb.toString()
 
             }
 
         } catch (e: IOException) {
 
-            // Printout the error
+            // Printout the error, in case our request using StringBuilder() will go wrong
             Log.e("HappyPlaces", "Unable connect to Geocoder")
+
+            // e.printStackTrace()
 
         }
 
+        // If Try/Catch will fail then return an Empty string
         return ""
     }
 
@@ -94,15 +97,15 @@ class GetAddressFromLatLng(
      */
     override fun onPostExecute(resultString: String?) {
 
-        //
+        // We are checking if the result string is null
         if (resultString == null) {
 
-            //
+            // Then call the mAddressListener onError()
             mAddressListener.onError()
 
         } else {
 
-            //
+            // Otherwise call the mAddressListener onAddressFound() using our resultString
             mAddressListener.onAddressFound(resultString)
 
         }
@@ -116,7 +119,7 @@ class GetAddressFromLatLng(
      */
     fun setAddressListener(addressListener: AddressListener) {
 
-        //
+        // We are setting the addressListener
         mAddressListener = addressListener
 
     }
@@ -126,7 +129,7 @@ class GetAddressFromLatLng(
      */
     fun getAddress() {
 
-        //
+        // This will execute the AsyncTask
         execute()
 
     }
