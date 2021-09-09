@@ -40,20 +40,38 @@ class GetAddressFromLatLng(
              * Returns an array of Addresses that are known to describe the
              * area immediately surrounding the given latitude and longitude.
              */
+
+            // List of Results = List of Addresses using GeoCoder
+            // Two options: getFromLocation() or getFromLocationName()
             val addressList: List<Address>? = geocoder.getFromLocation(latitude, longitude, 1)
 
-            //
+            // If the List is not empty, then:
             if (addressList != null && addressList.isNotEmpty()) {
+
+                //
                 val address: Address = addressList[0]
+
+                //
                 val sb = StringBuilder()
+
+                //
                 for (i in 0..address.maxAddressLineIndex) {
                     sb.append(address.getAddressLine(i)).append(",")
                 }
-                sb.deleteCharAt(sb.length - 1) // Here we remove the last comma that we have added above from the address.
+
+                // Here we remove the last comma that we have added above from the address.
+                sb.deleteCharAt(sb.length - 1)
+
+                //
                 return sb.toString()
+
             }
+
         } catch (e: IOException) {
+
+            // Printout the error
             Log.e("HappyPlaces", "Unable connect to Geocoder")
+
         }
 
         return ""
@@ -63,11 +81,21 @@ class GetAddressFromLatLng(
      * onPostExecute method of AsyncTask where the result will be received and assigned to the interface accordingly.
      */
     override fun onPostExecute(resultString: String?) {
+
+        //
         if (resultString == null) {
+
+            //
             mAddressListener.onError()
+
         } else {
+
+            //
             mAddressListener.onAddressFound(resultString)
+
         }
+
+        //
         super.onPostExecute(resultString)
     }
 
@@ -75,14 +103,20 @@ class GetAddressFromLatLng(
      * A public function to set the AddressListener.
      */
     fun setAddressListener(addressListener: AddressListener) {
+
+        //
         mAddressListener = addressListener
+
     }
 
     /**
      * A public function to execute the AsyncTask from the class is it called.
      */
     fun getAddress() {
+
+        //
         execute()
+
     }
 
     /**

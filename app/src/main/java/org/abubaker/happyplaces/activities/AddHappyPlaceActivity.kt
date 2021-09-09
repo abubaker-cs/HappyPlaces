@@ -38,6 +38,7 @@ import org.abubaker.happyplaces.R
 import org.abubaker.happyplaces.database.DatabaseHandler
 import org.abubaker.happyplaces.databinding.ActivityAddHappyPlaceBinding
 import org.abubaker.happyplaces.models.HappyPlaceModel
+import org.abubaker.happyplaces.utils.GetAddressFromLatLng
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -670,6 +671,33 @@ class AddHappyPlaceActivity : AppCompatActivity(), View.OnClickListener {
             // Longitude
             mLongitude = mLastLocation.longitude
             Log.e("Current Longitude", "$mLongitude")
+
+            // Call the AsyncTask class for getting an address from the latitude and longitude.
+            val addressTask = GetAddressFromLatLng(
+                this@AddHappyPlaceActivity,
+                mLatitude,
+                mLongitude
+            )
+
+            addressTask.setAddressListener(object : GetAddressFromLatLng.AddressListener {
+
+                // Populate received address in the TextView
+                override fun onAddressFound(address: String?) {
+                    Log.e("Address ::", "" + address)
+
+                    // Address is set to the edittext
+                    binding.etLocation.setText(address)
+                }
+
+                // Printout Error in Log
+                override fun onError() {
+                    Log.e("Get Address ::", "Something is wrong...")
+                }
+
+            })
+
+            addressTask.getAddress()
+
         }
     }
 
